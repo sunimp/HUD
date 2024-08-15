@@ -68,7 +68,7 @@ class HUDViewPresenter: HUDViewPresenterInterface, HUDViewInteractorDelegate, Co
     }
 
     func completeDismiss(completion: (() -> ())? = nil) {
-        if !(containerView.isVisible || (coverView.isVisible ?? false)) {
+        if !(containerView.isVisible || coverView.isVisible) {
 
             router.view?.window = nil
             router.view = nil

@@ -42,7 +42,7 @@ extension CoverViewInterface {
     }
 }
 
-public protocol CoverViewDelegate: class {
+public protocol CoverViewDelegate: AnyObject {
 
     func willShow()
     func didShow()

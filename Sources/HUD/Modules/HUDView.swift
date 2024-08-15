@@ -180,14 +180,14 @@ extension HUDView {
         if let rootViewController = UIApplication.shared.delegate?.window??.rootViewController {
             return rootViewController.preferredStatusBarStyle
         }
-        return presentingViewController?.preferredStatusBarStyle ?? UIApplication.shared.statusBarStyle
+        return presentingViewController?.preferredStatusBarStyle ?? UIApplication.shared.activeStatusBarStyle
     }
 
     internal override var prefersStatusBarHidden: Bool {
         if let rootViewController = UIApplication.shared.delegate?.window??.rootViewController {
             return rootViewController.prefersStatusBarHidden
         }
-        return self.presentingViewController?.prefersStatusBarHidden ?? UIApplication.shared.isStatusBarHidden
+        return self.presentingViewController?.prefersStatusBarHidden ?? UIApplication.shared.isActiveStatusBarHidden
     }
 
     internal override var preferredStatusBarUpdateAnimation: UIStatusBarAnimation {
