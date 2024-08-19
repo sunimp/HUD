@@ -1,8 +1,17 @@
+//
+//  HUDWindow.swift
+//  CryptoWallet
+//
+//  Created by Sun on 2024/8/19.
+//
+
 import UIKit
+
 import SnapKit
 import ThemeKit
 
 class HUDWindow: ThemeWindow {
+    
     override var frame: CGRect {
         didSet { // IMPORTANT. When window is square safeAreaInsets in willTransition controller rotate not changing!
             if abs(frame.height - frame.width) < 1 / UIScreen.main.scale {
@@ -17,17 +26,12 @@ class HUDWindow: ThemeWindow {
 
         isHidden = false
         windowLevel = level
-//        layer.cornerRadius = cornerRadius
         backgroundColor = .clear
         rootViewController = rootController
     }
 
     required init?(coder aDecoder: NSCoder) {
         fatalError()
-    }
-
-    deinit {
-//        print("deinit HUDWindow \(self)")
     }
 
     override func hitTest(_ point: CGPoint, with event: UIEvent?) -> UIView? {

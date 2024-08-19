@@ -1,3 +1,10 @@
+//
+//  HUDViewInteractor.swift
+//  CryptoWallet
+//
+//  Created by Sun on 2024/8/19.
+//
+
 import Foundation
 
 public enum HUDTimeActionType { case show, dismiss, custom }

@@ -1,3 +1,9 @@
+//
+//  HapticGenerator.swift
+//
+//  Created by Sun on 2024/8/19.
+//
+
 import Foundation
 
 open class ActionTimer {
@@ -5,7 +11,6 @@ open class ActionTimer {
     var handler: (() -> ())?
 
     static public func scheduledMainThreadTimer(action: (() -> ())?, interval: TimeInterval, repeats: Bool = false, runLoopModes: RunLoop.Mode = RunLoop.Mode.common) -> Timer {
-//        print("set timer : \(Date())")
         let handledTimer = ActionTimer()
         handledTimer.handler = action
 
@@ -16,12 +21,6 @@ open class ActionTimer {
     }
 
     @objc func timerEvent() {
-//        print("fire timer : \(Date())")
         handler?()
     }
-
-    deinit {
-//        print("deinit \(self)")
-    }
-
 }

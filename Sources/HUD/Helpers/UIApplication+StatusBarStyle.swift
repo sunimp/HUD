@@ -1,8 +1,8 @@
 //
 //  UIApplication+StatusBarStyle.swift
-//  
+//  CryptoWallet
 //
-//  Created by Sun on 2024/8/15.
+//  Created by Sun on 2024/8/19.
 //
 
 import UIKit

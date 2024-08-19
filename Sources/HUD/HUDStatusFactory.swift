@@ -1,9 +1,17 @@
+//
+//  HUDStatusFactory.swift
+//  CryptoWallet
+//
+//  Created by Sun on 2024/8/19.
+//
+
 import UIKit
 
 public enum HUDProgressType { case native, custom }
 public enum HUDStatusType { case custom(UIImage), progress(HUDProgressType), success, info, error }
 
 public class HUDStatusFactory {
+    
     static public let instance = HUDStatusFactory()
 
     public var config = HUDStatusModel()

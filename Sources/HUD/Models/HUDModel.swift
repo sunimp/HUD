@@ -1,3 +1,10 @@
+//
+//  HUDModel.swift
+//  CryptoWallet
+//
+//  Created by Sun on 2024/8/19.
+//
+
 import UIKit
 
 public enum HUDBannerStyle: Int { case top, right, bottom, left }

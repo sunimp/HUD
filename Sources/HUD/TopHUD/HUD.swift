@@ -1,4 +1,12 @@
+//
+//  HUD.swift
+//  CryptoWallet
+//
+//  Created by Sun on 2024/8/19.
+//
+
 import UIKit
+
 import UIExtensions
 
 public protocol IHudMode {

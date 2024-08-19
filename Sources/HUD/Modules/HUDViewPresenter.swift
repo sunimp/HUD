@@ -1,3 +1,10 @@
+//
+//  HUDViewPresenter.swift
+//  CryptoWallet
+//
+//  Created by Sun on 2024/8/19.
+//
+
 import Foundation
 
 class HUDViewPresenter: HUDViewPresenterInterface, HUDViewInteractorDelegate, CoverViewDelegate {

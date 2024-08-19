@@ -1,4 +1,12 @@
+//
+//  HUDStatusView.swift
+//  CryptoWallet
+//
+//  Created by Sun on 2024/8/19.
+//
+
 import UIKit
+
 import SnapKit
 
 public class HUDStatusView: UIView, HUDContentViewInterface, HUDTappableViewInterface {

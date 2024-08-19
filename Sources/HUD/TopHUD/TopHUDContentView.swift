@@ -1,9 +1,18 @@
+//
+//  TopHUDContentView.swift
+//  CryptoWallet
+//
+//  Created by Sun on 2024/8/19.
+//
+
 import UIKit
+
 import UIExtensions
 import SnapKit
 
 class TopHUDContentView: UIView {
-    private let loadingView = HUDProgressView(progress: nil, strokeLineWidth: 2, radius: 16, strokeColor: .themeGray50)
+    
+    private let loadingView = HUDProgressView(progress: nil, strokeLineWidth: 2, radius: 16, strokeColor: .zx002)
     private let imageView = UIImageView()
     private let titleLabel = UILabel()
 
@@ -34,8 +43,8 @@ class TopHUDContentView: UIView {
             maker.trailing.equalToSuperview().inset(32)
         }
 
-        titleLabel.font = .subhead1
-        titleLabel.textColor = .themeLeah
+        titleLabel.font = .r15
+        titleLabel.textColor = .zx002
         titleLabel.setContentCompressionResistancePriority(.required, for: .horizontal)
     }
 
