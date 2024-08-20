@@ -1,6 +1,6 @@
 //
 //  HUDStatusFactory.swift
-//  CryptoWallet
+//  HUD
 //
 //  Created by Sun on 2024/8/19.
 //
@@ -12,7 +12,7 @@ public enum HUDStatusType { case custom(UIImage), progress(HUDProgressType), suc
 
 public class HUDStatusFactory {
     
-    static public let instance = HUDStatusFactory()
+    public static let shared = HUDStatusFactory()
 
     public var config = HUDStatusModel()
 
@@ -40,7 +40,7 @@ public class HUDStatusFactory {
                     if let interval = config.customShowCancelInterval {
                         imageViewActions.append(HUDTimeAction(type: .custom, interval: interval, action: { [weak self, weak progressView] in
                             progressView?.appendInCenter(image: self?.config.cancelImage)
-                            HapticGenerator.instance.notification(.feedback(.medium))
+                            HapticGenerator.shared.notification(.feedback(.medium))
                         }))
                     }
                     animatedImageView = progressView

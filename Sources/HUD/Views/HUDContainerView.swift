@@ -1,6 +1,6 @@
 //
 //  HUDContainerView.swift
-//  CryptoWallet
+//  HUD
 //
 //  Created by Sun on 2024/8/19.
 //
@@ -60,17 +60,15 @@ open class HUDContainerView: CustomIntensityVisualEffectView, HUDContainerInterf
             effect = UIBlurEffect(style: style)
         }
         super.init(effect: effect, intensity: model.blurEffectIntensity ?? 1)
-        commonInit()
+        setup()
     }
 
-    public required init?(coder aDecoder: NSCoder) {
-        self.model = HUDConfig()
-
-        super.init(coder: aDecoder)
-        commonInit()
+    @available(*, unavailable)
+    required public init?(coder aDecoder: NSCoder) {
+        fatalError("init(coder:) has not been implemented")
     }
 
-    private func commonInit() {
+    private func setup() {
         translatesAutoresizingMaskIntoConstraints = false
 
         backgroundColor = model.backgroundColor
@@ -79,10 +77,6 @@ open class HUDContainerView: CustomIntensityVisualEffectView, HUDContainerInterf
 
         layer.borderWidth = model.borderWidth
         layer.borderColor = model.borderColor.cgColor
-//
-//        layer.shadowRadius = model.shadowRadius
-//        layer.shadowColor = UIColor.black.cgColor
-//        layer.shadowOpacity = 0.3
     }
 
     public func setContent(content: HUDContentViewInterface, preferredSize: CGSize, maxSize: CGSize, exact: Bool) {

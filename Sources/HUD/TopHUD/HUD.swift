@@ -1,6 +1,6 @@
 //
 //  HUD.swift
-//  CryptoWallet
+//  HUD
 //
 //  Created by Sun on 2024/8/19.
 //
@@ -18,7 +18,8 @@ public protocol IHudMode {
 }
 
 public class HUD {
-    static public let instance = HUD()
+    
+    public static let shared = HUD()
 
     let keyboardNotificationHandler: HUDKeyboardHelper
 
@@ -33,8 +34,8 @@ public class HUD {
     }
 
     public func show(error: String?) {
-        HUDStatusFactory.instance.config.dismissTimeInterval = 2
-        let content = HUDStatusFactory.instance.view(type: .error, title: error)
+        HUDStatusFactory.shared.config.dismissTimeInterval = 2
+        let content = HUDStatusFactory.shared.view(type: .error, title: error)
         showHUD(content, onTapHUD: { hud in
             hud.hide()
         })
@@ -91,7 +92,7 @@ extension HUD: HUDViewRouterInterface {
         let presenter: HUDViewPresenterInterface & HUDViewInteractorDelegate = HUDViewPresenter(interactor: interactor, router: router, coverView: backgroundWindow.coverView, containerView: containerView, config: config)
         let view = HUDView(presenter: presenter, config: config, backgroundWindow: backgroundWindow, containerView: containerView, statusBarStyle: statusBarStyle)
 
-        presenter.feedbackGenerator = HapticGenerator.instance
+        presenter.feedbackGenerator = HapticGenerator.shared
         presenter.view = view
         interactor.delegate = presenter
 

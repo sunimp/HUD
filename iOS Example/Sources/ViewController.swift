@@ -33,11 +33,11 @@ class ViewController: UIViewController {
         config.backgroundColor = .gray
         config.blurEffectStyle = .regular
 
-        HUD.instance.config = config
+        HUD.shared.config = config
 
-        HUDStatusFactory.instance.config.customProgressValue = nil
-        let content = HUDStatusFactory.instance.view(type: .progress(.custom), title: "Hello world")
-        HUD.instance.showHUD(content, onTapHUD: { hud in
+        HUDStatusFactory.shared.config.customProgressValue = nil
+        let content = HUDStatusFactory.shared.view(type: .progress(.custom), title: "Hello world")
+        HUD.shared.showHUD(content, onTapHUD: { hud in
             hud.hide()
         })
     }

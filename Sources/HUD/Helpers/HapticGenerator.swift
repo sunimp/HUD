@@ -1,5 +1,6 @@
 //
 //  HapticGenerator.swift
+//  HUD
 //
 //  Created by Sun on 2024/8/19.
 //
@@ -11,7 +12,9 @@ public protocol HUDFeedbackGenerator {
 }
 
 public class HapticGenerator: HUDFeedbackGenerator {
-    static public let instance = HapticGenerator()
+    
+    public static let shared = HapticGenerator()
+    
     let notificationGenerator = UINotificationFeedbackGenerator()
     var impactStyle: UIImpactFeedbackGenerator.FeedbackStyle = .light
     var impactGenerator = UIImpactFeedbackGenerator(style: .light)

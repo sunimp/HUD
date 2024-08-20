@@ -1,3 +1,10 @@
+//
+//  SmoothValueChanger.swift
+//  HUD
+//
+//  Created by Sun on 2024/8/19.
+//
+
 import Foundation
 
 public class SmoothValueChanger {
