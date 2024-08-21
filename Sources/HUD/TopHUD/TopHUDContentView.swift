@@ -43,15 +43,15 @@ class TopHUDContentView: UIView {
             maker.trailing.equalToSuperview().inset(32)
         }
 
-        titleLabel.font = .r15
+        titleLabel.font = .regular15
         titleLabel.textColor = .zx002
         titleLabel.setContentCompressionResistancePriority(.required, for: .horizontal)
     }
 
-    required init?(coder: NSCoder) {
+    @available(*, unavailable)
+    required init?(coder aDecoder: NSCoder) {
         fatalError("init(coder:) has not been implemented")
     }
-
 }
 
 extension TopHUDContentView {

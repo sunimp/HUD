@@ -8,6 +8,7 @@
 import UIKit
 
 import SnapKit
+import UIExtensions
 
 class HUDView: UIViewController, HUDViewInterface {
     let presenter: HUDViewPresenterInterface
@@ -39,8 +40,9 @@ class HUDView: UIViewController, HUDViewInterface {
         super.init(nibName: nil, bundle: Bundle(for: HUDView.self))
     }
 
+    @available(*, unavailable)
     required init?(coder aDecoder: NSCoder) {
-        fatalError()
+        fatalError("init(coder:) has not been implemented")
     }
 
     override func viewDidLoad() {

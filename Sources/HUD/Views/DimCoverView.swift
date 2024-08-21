@@ -34,11 +34,12 @@ open class DimCoverView: HUDCoverView {
         commonInit()
     }
 
-    public required init?(coder aDecoder: NSCoder) {
+    @available(*, unavailable)
+    required public init?(coder aDecoder: NSCoder) {
         fatalError("init(coder:) has not been implemented")
     }
 
-    internal func commonInit() {
+    func commonInit() {
         isHidden = true
 
         dimBackgroundView.backgroundColor = model.coverBackgroundColor

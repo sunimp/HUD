@@ -15,8 +15,9 @@ class BackgroundHUDWindow: HUDWindow {
         super.init(frame: frame, rootController: rootController, level: level, cornerRadius: cornerRadius)
     }
 
+    @available(*, unavailable)
     required init?(coder aDecoder: NSCoder) {
-        fatalError()
+        fatalError("init(coder:) has not been implemented")
     }
 
     func set(transparent: Bool) {

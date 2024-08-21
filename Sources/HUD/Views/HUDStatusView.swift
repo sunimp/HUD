@@ -33,7 +33,8 @@ public class HUDStatusView: UIView, HUDContentViewInterface, HUDTappableViewInte
         commonInit()
     }
 
-    public required init?(coder aDecoder: NSCoder) {
+    @available(*, unavailable)
+    required public init?(coder aDecoder: NSCoder) {
         fatalError("init(coder:) has not been implemented")
     }
 

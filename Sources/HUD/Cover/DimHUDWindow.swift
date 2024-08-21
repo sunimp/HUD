@@ -19,8 +19,9 @@ class DimHUDWindow: BackgroundHUDWindow {
         super.init(frame: frame, rootController: dimViewController, coverView: coverView, level: level, cornerRadius: cornerRadius)
     }
 
+    @available(*, unavailable)
     required init?(coder aDecoder: NSCoder) {
-        fatalError()
+        fatalError("init(coder:) has not been implemented")
     }
 
 }

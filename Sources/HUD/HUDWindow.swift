@@ -30,8 +30,9 @@ class HUDWindow: ThemeWindow {
         rootViewController = rootController
     }
 
+    @available(*, unavailable)
     required init?(coder aDecoder: NSCoder) {
-        fatalError()
+        fatalError("init(coder:) has not been implemented")
     }
 
     override func hitTest(_ point: CGPoint, with event: UIEvent?) -> UIView? {
