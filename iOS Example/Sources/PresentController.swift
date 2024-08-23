@@ -72,7 +72,7 @@ class PresentController: UIViewController {
         HUD.shared.show(
             config: config,
             viewItem: viewItem,
-            statusBarStyle: UIApplication.shared.activeStatusBarStyle,
+            statusBarStyle: UIWindow.statusBarStyle,
             forced: true
         )
     }
