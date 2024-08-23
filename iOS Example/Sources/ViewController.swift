@@ -1,45 +1,33 @@
+//
+//  ViewController.swift
+//  iOS Example
+//
+//  Created by Sun on 2024/8/23.
+//
+
 import UIKit
-import HUD
 
 class ViewController: UIViewController {
 
     override func viewDidLoad() {
         super.viewDidLoad()
-
-        let hudButton = UIButton()
-        view.addSubview(hudButton)
-
-        hudButton.snp.makeConstraints { maker in
+        
+        let presentButton = UIButton()
+        view.addSubview(presentButton)
+        
+        presentButton.snp.makeConstraints { maker in
             maker.top.equalToSuperview().offset(100)
             maker.centerX.equalToSuperview()
             maker.height.equalTo(30)
         }
-
-        hudButton.setTitleColor(.black, for: .normal)
-        hudButton.setTitle("Show HUD", for: .normal)
-        hudButton.addTarget(self, action: #selector(showHud), for: .touchUpInside)
+        
+        presentButton.setTitleColor(.black, for: .normal)
+        presentButton.setTitle("Present VC", for: .normal)
+        presentButton.addTarget(self, action: #selector(presentVC), for: .touchUpInside)
     }
-
-    @objc func showHud() {
-        show(title: "Hello World")
+    
+    @objc func presentVC() {
+        let vc = PresentController()
+        present(vc, animated: true)
     }
-
-    private func show(title: String?) {
-        var config = HUDConfig()
-        config.style = .center
-        config.startAdjustSize = 0.8
-        config.finishAdjustSize = 0.8
-        config.preferredSize = CGSize(width: 146, height: 114)
-        config.backgroundColor = .gray
-        config.blurEffectStyle = .regular
-
-        HUD.shared.config = config
-
-        HUDStatusFactory.shared.config.customProgressValue = nil
-        let content = HUDStatusFactory.shared.view(type: .progress(.custom), title: "Hello world")
-        HUD.shared.showHUD(content, onTapHUD: { hud in
-            hud.hide()
-        })
-    }
-
 }
