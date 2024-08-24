@@ -63,7 +63,7 @@ open class DimCoverView: HUDCoverView {
         }
     }
 
-    override public func hide(animated: Bool, completion: (() -> ())?) {
+    override public func hide(animated: Bool, completion: (() -> Void)?) {
         delegate?.willHide()
         if animated {
             UIView.animate(withDuration: model.coverOutAnimationDuration, delay: 0, options: model.coverAnimationCurve, animations: {
@@ -96,7 +96,7 @@ open class DimCoverView: HUDCoverView {
     }
 
     deinit {
-//        print("deinit coverView \(self)")
+//        print("Deinit coverView \(self)")
     }
 
 }

@@ -26,8 +26,10 @@ class ViewController: UIViewController {
         presentButton.addTarget(self, action: #selector(presentVC), for: .touchUpInside)
     }
     
-    @objc func presentVC() {
+    @objc 
+    func presentVC() {
         let vc = PresentController()
+        vc.modalPresentationStyle = .fullScreen
         present(vc, animated: true)
     }
 }

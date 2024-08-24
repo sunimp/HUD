@@ -8,17 +8,24 @@
 import Foundation
 
 public class SmoothValueChanger {
+    
     var currentValue: Float
 
     let fullChangeTime: TimeInterval
     let stepValue: Float
 
-    var onChangeValue: ((Float) -> ())?
-    var onFinishChanging: ((Float) -> ())?
+    var onChangeValue: ((Float) -> Void)?
+    var onFinishChanging: ((Float) -> Void)?
 
     private var timer: Timer?
 
-    public init(initialValue: Float, fullChangeTime: TimeInterval, stepValue: Float = 0.01, onChangeValue: ((Float) -> ())?, onFinishChanging: ((Float) -> ())? = nil) {
+    public init(
+        initialValue: Float,
+        fullChangeTime: TimeInterval,
+        stepValue: Float = 0.01,
+        onChangeValue: ((Float) -> Void)?,
+        onFinishChanging: ((Float) -> Void)? = nil
+    ) {
         self.currentValue = initialValue
         self.stepValue = stepValue
         self.fullChangeTime = fullChangeTime
@@ -49,7 +56,6 @@ public class SmoothValueChanger {
     }
 
     private func finishChangeValue() {
-//        print("timer finish change value with \(currentValue)")
         onFinishChanging?(currentValue)
         timer?.invalidate()
         timer = nil
@@ -57,11 +63,6 @@ public class SmoothValueChanger {
 
     private func changeValue() {
         currentValue += stepValue
-//        print("timer change value to \(currentValue)")
         onChangeValue?(currentValue)
-    }
-
-    deinit {
-//        print("deinit value changer")
     }
 }

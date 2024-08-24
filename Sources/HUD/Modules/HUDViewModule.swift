@@ -11,8 +11,8 @@ protocol HUDViewInterface: AnyObject {
     var presenter: HUDViewPresenterInterface { get }
 
     func adjustPlace()
-    var showCompletion: (() -> ())? { get set }
-    var dismissCompletion: (() -> ())? { get set }
+    var showCompletion: (() -> Void)? { get set }
+    var dismissCompletion: (() -> Void)? { get set }
     func safeCorrectedOffset(for inset: CGPoint, style: HUDBannerStyle?, relativeWindow: Bool) -> CGPoint
 }
 
@@ -30,8 +30,8 @@ protocol HUDViewPresenterInterface: AnyObject {
     func viewDidLoad()
     func addActionTimers(_ timeActions: [HUDTimeAction])
     func updateCover()
-    func show(animated: Bool, completion: (() -> ())?)
-    func dismiss(animated: Bool, completion: (() -> ())?)
+    func show(animated: Bool, completion: (() -> Void)?)
+    func dismiss(animated: Bool, completion: (() -> Void)?)
 }
 
 protocol HUDViewInteractorInterface: AnyObject {
@@ -40,7 +40,7 @@ protocol HUDViewInteractorInterface: AnyObject {
 
 protocol HUDViewInteractorDelegate: AnyObject {
     func updateCover()
-    func showContainerView(animated: Bool, completion: (() -> ())?)
-    func dismiss(animated: Bool, completion: (() -> ())?)
+    func showContainerView(animated: Bool, completion: (() -> Void)?)
+    func dismiss(animated: Bool, completion: (() -> Void)?)
 }
 

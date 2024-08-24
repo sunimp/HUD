@@ -11,6 +11,7 @@ import SnapKit
 import UIExtensions
 
 class HUDView: UIViewController, HUDViewInterface {
+    
     let presenter: HUDViewPresenterInterface
     var config: HUDViewModel
     var window: UIWindow?
@@ -27,10 +28,16 @@ class HUDView: UIViewController, HUDViewInterface {
     }
     var visibleKeyboardOffset: CGFloat = 0
 
-    public var showCompletion: (() -> ())?
-    public var dismissCompletion: (() -> ())?
+    public var showCompletion: (() -> Void)?
+    public var dismissCompletion: (() -> Void)?
 
-    init(presenter: HUDViewPresenterInterface, config: HUDViewModel, backgroundWindow: BackgroundHUDWindow, containerView: HUDContainerView, statusBarStyle: UIStatusBarStyle? = nil) {
+    init(
+        presenter: HUDViewPresenterInterface,
+        config: HUDViewModel,
+        backgroundWindow: BackgroundHUDWindow,
+        containerView: HUDContainerView,
+        statusBarStyle: UIStatusBarStyle? = nil
+    ) {
         self.presenter = presenter
         self.config = config
         self.backgroundWindow = backgroundWindow
@@ -159,14 +166,14 @@ class HUDView: UIViewController, HUDViewInterface {
     }
 
     deinit {
-//        print("deinit viewController \(self)")
+//        print("Deinit viewController \(self)")
     }
 
 }
 
 extension HUDView {
 
-    func hide(animated: Bool, completion: (() -> ())? = nil) {
+    func hide(animated: Bool, completion: (() -> Void)? = nil) {
         presenter.dismiss(animated: animated, completion: completion)
     }
 

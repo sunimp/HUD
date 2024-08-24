@@ -7,8 +7,18 @@
 
 import UIKit
 
-public enum HUDProgressType { case native, custom }
-public enum HUDStatusType { case custom(UIImage), progress(HUDProgressType), success, info, error }
+public enum HUDProgressType { 
+    case native
+    case custom
+}
+
+public enum HUDStatusType {
+    case custom(UIImage)
+    case progress(HUDProgressType)
+    case success
+    case info
+    case error
+}
 
 public class HUDStatusFactory {
     
@@ -18,7 +28,11 @@ public class HUDStatusFactory {
 
     init() {}
 
-    public func view(type: HUDStatusType, title: String? = nil, subtitle: String? = nil) -> HUDStatusView {
+    public func view(
+        type: HUDStatusType,
+        title: String? = nil,
+        subtitle: String? = nil
+    ) -> HUDStatusView {
         var image: UIImage?
         let imageView: UIView
         var imageViewActions = [HUDTimeAction]()

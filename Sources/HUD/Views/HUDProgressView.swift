@@ -303,7 +303,7 @@ public class HUDProgressView: UIView, HUDAnimatedViewInterface, HUDTappableViewI
     }
 
     deinit {
-//        print("deinit progress view \(self)")
+//        print("Deinit progress view \(self)")
     }
 
 }

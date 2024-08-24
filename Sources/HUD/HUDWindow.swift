@@ -21,8 +21,14 @@ class HUDWindow: ThemeWindow {
     }
 
     var transparent: Bool = false
-    init(frame: CGRect, rootController: UIViewController, level: UIWindow.Level = UIWindow.Level.normal, cornerRadius: CGFloat = 0) {
-        super.init(frame: frame)
+    
+    init(
+        windowScene: UIWindowScene,
+        rootController: UIViewController,
+        level: UIWindow.Level = UIWindow.Level.normal,
+        cornerRadius: CGFloat = 0
+    ) {
+        super.init(windowScene: windowScene)
 
         isHidden = false
         windowLevel = level

@@ -10,6 +10,7 @@ import UIKit
 import SnapKit
 
 class DimViewController: UIViewController {
+    
     private var coverView: DimCoverView
 
     init(coverView: DimCoverView) {
@@ -37,7 +38,7 @@ class DimViewController: UIViewController {
 
 extension DimViewController {
 
-    var onTap: (() -> ())? {
+    var onTap: (() -> Void)? {
         get { coverView.onTapCover }
         set { coverView.onTapCover = newValue }
     }

@@ -7,14 +7,18 @@
 
 import Foundation
 
-public enum HUDTimeActionType { case show, dismiss, custom }
+public enum HUDTimeActionType { 
+    case show
+    case dismiss
+    case custom
+}
 
 public struct HUDTimeAction {
     var type: HUDTimeActionType
     var interval: TimeInterval
-    var action: (() -> ())?
+    var action: (() -> Void)?
 
-    init(type: HUDTimeActionType, interval: TimeInterval, action: (() -> ())? = nil) {
+    init(type: HUDTimeActionType, interval: TimeInterval, action: (() -> Void)? = nil) {
         self.type = type
         self.interval = interval
         self.action = action
@@ -23,6 +27,7 @@ public struct HUDTimeAction {
 }
 
 class HUDViewInteractor: HUDViewInteractorInterface {
+    
     weak var delegate: HUDViewInteractorDelegate?
 
     deinit {

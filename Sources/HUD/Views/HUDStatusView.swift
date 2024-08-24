@@ -96,7 +96,7 @@ public class HUDStatusView: UIView, HUDContentViewInterface, HUDTappableViewInte
     }
 
     deinit {
-//        print("deinit content \(self)")
+//        print("Deinit content \(self)")
     }
 
 }

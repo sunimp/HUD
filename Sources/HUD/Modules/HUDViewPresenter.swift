@@ -20,7 +20,13 @@ class HUDViewPresenter: HUDViewPresenterInterface, HUDViewInteractorDelegate, Co
 
     private var timers = [Timer]()
 
-    init(interactor: HUDViewInteractorInterface, router: HUDViewRouterInterface, coverView: CoverViewInterface, containerView: HUDContainerInterface, config: HUDConfig) {
+    init(
+        interactor: HUDViewInteractorInterface,
+        router: HUDViewRouterInterface,
+        coverView: CoverViewInterface,
+        containerView: HUDContainerInterface,
+        config: HUDConfig
+    ) {
         self.interactor = interactor
         self.router = router
         self.coverView = coverView
@@ -41,7 +47,7 @@ class HUDViewPresenter: HUDViewPresenterInterface, HUDViewInteractorDelegate, Co
         }
     }
 
-    func showContainerView(animated: Bool = true, completion: (() -> ())? = nil) {
+    func showContainerView(animated: Bool = true, completion: (() -> Void)? = nil) {
         var style: HUDBannerStyle?
         if case .banner(let bannerStyle) = config.style {
             style = bannerStyle
@@ -50,7 +56,7 @@ class HUDViewPresenter: HUDViewPresenterInterface, HUDViewInteractorDelegate, Co
         containerView.show(animated: true, appearStyle: config.appearStyle, offset: correctedOffset, completion: completion)
     }
 
-    func show(animated: Bool = true, completion: (() -> ())? = nil) {
+    func show(animated: Bool = true, completion: (() -> Void)? = nil) {
         if let hapticType = config.hapticType {
             feedbackGenerator?.notification(hapticType)
         }
@@ -58,7 +64,7 @@ class HUDViewPresenter: HUDViewPresenterInterface, HUDViewInteractorDelegate, Co
         showContainerView(animated: animated, completion: completion)
     }
 
-    func dismiss(animated: Bool = true, completion: (() -> ())? = nil) {
+    func dismiss(animated: Bool = true, completion: (() -> Void)? = nil) {
         removeAllTimers()
 
         var style: HUDBannerStyle?
@@ -74,7 +80,7 @@ class HUDViewPresenter: HUDViewPresenterInterface, HUDViewInteractorDelegate, Co
         })
     }
 
-    func completeDismiss(completion: (() -> ())? = nil) {
+    func completeDismiss(completion: (() -> Void)? = nil) {
         if !(containerView.isVisible || coverView.isVisible) {
 
             router.view?.window = nil
@@ -86,7 +92,7 @@ class HUDViewPresenter: HUDViewPresenterInterface, HUDViewInteractorDelegate, Co
     func addActionTimers(_ timeActions: [HUDTimeAction]) {
         removeAllTimers()
         timeActions.forEach { [weak self] timeAction in
-            var prepareAction: (() -> ())? = nil
+            var prepareAction: (() -> Void)? = nil
 
             switch timeAction.type {
             case .show: prepareAction = { [weak self] in self?.router.show() }
@@ -109,8 +115,7 @@ class HUDViewPresenter: HUDViewPresenterInterface, HUDViewInteractorDelegate, Co
 
     // CoverView delegate
 
-    func didHide() {
-    }
+    func didHide() { }
 
     deinit {
 //        print("Deinit HUDView presenter \(self)")

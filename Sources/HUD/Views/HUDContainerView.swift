@@ -40,8 +40,8 @@ public protocol HUDContainerInterface: AnyObject {
     var isVisible: Bool { get }
 
     func outScreenOffset(for offset: CGPoint, style: HUDBannerStyle?) -> CGPoint
-    func show(animated: Bool, appearStyle: HUDAppearStyle, offset: CGPoint, completion: (() -> ())?)
-    func hide(animated: Bool, appearStyle: HUDAppearStyle, offset: CGPoint, completion: (() -> ())?)
+    func show(animated: Bool, appearStyle: HUDAppearStyle, offset: CGPoint, completion: (() -> Void)?)
+    func hide(animated: Bool, appearStyle: HUDAppearStyle, offset: CGPoint, completion: (() -> Void)?)
 }
 
 open class HUDContainerView: CustomIntensityVisualEffectView, HUDContainerInterface {
@@ -49,7 +49,7 @@ open class HUDContainerView: CustomIntensityVisualEffectView, HUDContainerInterf
     private let model: HUDContainerModel
 
     private var _content: UIView?
-    public var onTapContainer: (() -> ())?
+    public var onTapContainer: (() -> Void)?
     public var isVisible: Bool { return !isHidden }
 
     public init(withModel model: HUDContainerModel) {
@@ -121,12 +121,12 @@ open class HUDContainerView: CustomIntensityVisualEffectView, HUDContainerInterf
         return outScreenOffset
     }
 
-    public func show(animated: Bool, appearStyle: HUDAppearStyle, offset: CGPoint, completion: (() -> ())?) {
+    public func show(animated: Bool, appearStyle: HUDAppearStyle, offset: CGPoint, completion: (() -> Void)?) {
         guard isHidden else {
             completion?()
             return
         }
-        let animateBlock: () -> ()
+        let animateBlock: () -> Void
         switch appearStyle {
             case .alphaAppear:
                 alpha = 0
@@ -168,12 +168,12 @@ open class HUDContainerView: CustomIntensityVisualEffectView, HUDContainerInterf
         }
     }
 
-    public func hide(animated: Bool, appearStyle: HUDAppearStyle, offset: CGPoint, completion: (() -> ())?) {
+    public func hide(animated: Bool, appearStyle: HUDAppearStyle, offset: CGPoint, completion: (() -> Void)?) {
         guard !isHidden else {
             completion?()
             return
         }
-        let animateBlock: () -> ()
+        let animateBlock: () -> Void
         switch appearStyle {
             case .alphaAppear:
                 animateBlock = {
@@ -221,6 +221,6 @@ open class HUDContainerView: CustomIntensityVisualEffectView, HUDContainerInterf
     }
 
     deinit {
-//        print("deinit containerView \(self)")
+//        print("Deinit containerView \(self)")
     }
 }

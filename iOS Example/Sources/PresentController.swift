@@ -24,7 +24,21 @@ class PresentController: UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         
-        view.backgroundColor = .zx008
+        view.backgroundColor = .black
+        
+        let closeButton = UIButton()
+        view.addSubview(closeButton)
+        
+        closeButton.snp.makeConstraints { maker in
+            maker.height.equalTo(30)
+            maker.width.equalTo(50)
+            maker.leading.equalToSuperview().inset(20)
+            maker.top.equalToSuperview().inset(100)
+        }
+        
+        closeButton.setTitleColor(.zx017, for: .normal)
+        closeButton.setTitle("Close", for: .normal)
+        closeButton.addTarget(self, action: #selector(close), for: .touchUpInside)
         
         let hudButton = UIButton()
         view.addSubview(hudButton)
@@ -35,13 +49,19 @@ class PresentController: UIViewController {
             maker.height.equalTo(30)
         }
         
-        hudButton.setTitleColor(.black, for: .normal)
+        hudButton.setTitleColor(.zx017, for: .normal)
         hudButton.setTitle("Show HUD", for: .normal)
         hudButton.addTarget(self, action: #selector(showHud), for: .touchUpInside)
     }
     
-    @objc func showHud() {
+    @objc 
+    func showHud() {
         show(title: "Hello World")
+    }
+    
+    @objc 
+    func close() {
+        self.dismiss(animated: true)
     }
     
     private func show(title: String?) {
@@ -72,7 +92,6 @@ class PresentController: UIViewController {
         HUD.shared.show(
             config: config,
             viewItem: viewItem,
-            statusBarStyle: UIWindow.statusBarStyle,
             forced: true
         )
     }

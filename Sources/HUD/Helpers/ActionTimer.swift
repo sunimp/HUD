@@ -9,9 +9,14 @@ import Foundation
 
 open class ActionTimer {
 
-    var handler: (() -> ())?
+    var handler: (() -> Void)?
 
-    static public func scheduledMainThreadTimer(action: (() -> ())?, interval: TimeInterval, repeats: Bool = false, runLoopModes: RunLoop.Mode = RunLoop.Mode.common) -> Timer {
+    static public func scheduledMainThreadTimer(
+        action: (() -> Void)?,
+        interval: TimeInterval,
+        repeats: Bool = false,
+        runLoopModes: RunLoop.Mode = RunLoop.Mode.common
+    ) -> Timer {
         let handledTimer = ActionTimer()
         handledTimer.handler = action
 
@@ -21,7 +26,8 @@ open class ActionTimer {
         return timer
     }
 
-    @objc func timerEvent() {
+    @objc
+    func timerEvent() {
         handler?()
     }
 }

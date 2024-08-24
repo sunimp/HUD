@@ -7,12 +7,42 @@
 
 import UIKit
 
-public enum HUDBannerStyle: Int { case top, right, bottom, left }
-public enum HUDSizeAppearStyle: Int { case horizontal, vertical, both }
-public enum HUDStyle { case banner(HUDBannerStyle), center }
-public enum HUDAppearStyle { case moveOut, alphaAppear, sizeAppear(HUDSizeAppearStyle) }
-public enum HUDHandleKeyboardType { case startPosition, always, none }
-public enum HapticNotificationType { case error, success, warning, feedback(UIImpactFeedbackGenerator.FeedbackStyle) }
+public enum HUDBannerStyle: Int { 
+    case top
+    case right
+    case bottom
+    case left
+}
+
+public enum HUDSizeAppearStyle: Int {
+    case horizontal
+    case vertical
+    case both
+}
+
+public enum HUDStyle {
+    case banner(HUDBannerStyle)
+    case center
+}
+
+public enum HUDAppearStyle {
+    case moveOut
+    case alphaAppear
+    case sizeAppear(HUDSizeAppearStyle)
+}
+
+public enum HUDHandleKeyboardType { 
+    case startPosition
+    case always
+    case none
+}
+
+public enum HapticNotificationType {
+    case error
+    case success
+    case warning
+    case feedback(UIImpactFeedbackGenerator.FeedbackStyle)
+}
 
 public protocol HUDCoverModel {
     var coverInAnimationDuration: TimeInterval { get set }
@@ -99,7 +129,6 @@ public struct HUDConfig: HUDViewModel, HUDCoverModel, HUDContainerModel {
 
     public var hapticType: HapticNotificationType? = .error
 
-    public init() {
-    }
+    public init() { }
 
 }

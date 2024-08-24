@@ -8,11 +8,23 @@
 import UIKit
 
 class BackgroundHUDWindow: HUDWindow {
+    
     private(set) var coverView: CoverViewInterface
 
-    init(frame: CGRect, rootController: UIViewController, coverView: CoverViewInterface, level: UIWindow.Level = UIWindow.Level.normal, cornerRadius: CGFloat = 0) {
+    init(
+        windowScene: UIWindowScene,
+        rootController: UIViewController,
+        coverView: CoverViewInterface,
+        level: UIWindow.Level = UIWindow.Level.normal,
+        cornerRadius: CGFloat = 0
+    ) {
         self.coverView = coverView
-        super.init(frame: frame, rootController: rootController, level: level, cornerRadius: cornerRadius)
+        super.init(
+            windowScene: windowScene,
+            rootController: rootController,
+            level: level,
+            cornerRadius: cornerRadius
+        )
     }
 
     @available(*, unavailable)
@@ -24,5 +36,4 @@ class BackgroundHUDWindow: HUDWindow {
         self.transparent = transparent
         coverView.transparent = transparent
     }
-
 }

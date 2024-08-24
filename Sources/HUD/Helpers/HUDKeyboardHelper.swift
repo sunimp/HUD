@@ -82,7 +82,8 @@ public class HUDKeyboardHelper {
 
     // Keyboard Handler
 
-    @objc func keyboardChangePosition(notification: Notification) {
+    @objc 
+    func keyboardChangePosition(notification: Notification) {
         lastNotification = notification
         delegate?.keyboardDidChangePosition()
     }
