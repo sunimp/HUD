@@ -7,6 +7,8 @@
 
 import UIKit
 
+// MARK: - DimHUDWindow
+
 class DimHUDWindow: BackgroundHUDWindow {
     
     private var dimViewController: DimViewController?
@@ -32,7 +34,7 @@ class DimHUDWindow: BackgroundHUDWindow {
     }
 
     @available(*, unavailable)
-    required init?(coder aDecoder: NSCoder) {
+    required init?(coder _: NSCoder) {
         fatalError("init(coder:) has not been implemented")
     }
 

@@ -14,13 +14,13 @@ class NativeProgressView: UIActivityIndicatorView, HUDAnimatedViewInterface {
     init(activityIndicatorStyle: UIActivityIndicatorView.Style, color: UIColor? = nil) {
         super.init(frame: .zero)
 
-        self.style = activityIndicatorStyle
+        style = activityIndicatorStyle
         self.color = color
 
         commonInit()
     }
 
-    required init(coder aDecoder: NSCoder) {
+    required init(coder _: NSCoder) {
         fatalError("Can't use decoder")
     }
 
@@ -28,11 +28,11 @@ class NativeProgressView: UIActivityIndicatorView, HUDAnimatedViewInterface {
         sizeToFit()
     }
 
-    func set(valueChanger: SmoothValueChanger?) {
+    func set(valueChanger _: SmoothValueChanger?) {
         // can't set progress for native activity indicator
     }
 
-    func set(progress: Float) {
+    func set(progress _: Float) {
         // can't set progress for native activity indicator
     }
 

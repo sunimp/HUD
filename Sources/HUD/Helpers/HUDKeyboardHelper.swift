@@ -7,24 +7,46 @@
 
 import UIKit
 
+// MARK: - HUDKeyboardHelper
+
 public class HUDKeyboardHelper {
     public static let shared = HUDKeyboardHelper()
 
-    public var lastNotification: Notification?
-    weak var delegate: HUDKeyboardHelperDelegate?
+    public var lastNotification: Notification? = nil
+    weak var delegate: HUDKeyboardHelperDelegate? = nil
 
     init() {
         registerKeyboardNotifications()
     }
 
-    fileprivate func registerKeyboardNotifications() {
-        NotificationCenter.default.addObserver(self, selector: #selector(keyboardChangePosition), name: UIResponder.keyboardWillShowNotification, object: nil)
-        NotificationCenter.default.addObserver(self, selector: #selector(keyboardChangePosition), name: UIResponder.keyboardWillHideNotification, object: nil)
-        NotificationCenter.default.addObserver(self, selector: #selector(keyboardChangePosition), name: UIResponder.keyboardDidShowNotification, object: nil)
-        NotificationCenter.default.addObserver(self, selector: #selector(keyboardChangePosition), name: UIResponder.keyboardDidHideNotification, object: nil)
+    private func registerKeyboardNotifications() {
+        NotificationCenter.default.addObserver(
+            self,
+            selector: #selector(keyboardChangePosition),
+            name: UIResponder.keyboardWillShowNotification,
+            object: nil
+        )
+        NotificationCenter.default.addObserver(
+            self,
+            selector: #selector(keyboardChangePosition),
+            name: UIResponder.keyboardWillHideNotification,
+            object: nil
+        )
+        NotificationCenter.default.addObserver(
+            self,
+            selector: #selector(keyboardChangePosition),
+            name: UIResponder.keyboardDidShowNotification,
+            object: nil
+        )
+        NotificationCenter.default.addObserver(
+            self,
+            selector: #selector(keyboardChangePosition),
+            name: UIResponder.keyboardDidHideNotification,
+            object: nil
+        )
     }
 
-    fileprivate func unregisterKeyboardNotifications() {
+    private func unregisterKeyboardNotifications() {
         NotificationCenter.default.removeObserver(self, name: UIResponder.keyboardWillShowNotification, object: nil)
         NotificationCenter.default.removeObserver(self, name: UIResponder.keyboardWillHideNotification, object: nil)
         NotificationCenter.default.removeObserver(self, name: UIResponder.keyboardDidShowNotification, object: nil)
@@ -33,7 +55,10 @@ public class HUDKeyboardHelper {
 
     public var visibleKeyboardHeight: CGFloat {
         var possibleKeyboardWindow: UIWindow?
-        if UIApplication.shared.windows.count > 1, let window = UIApplication.shared.windows.max(by: { $0.windowLevel < $1.windowLevel }) {
+        if
+            UIApplication.shared.windows.count > 1,
+            let window = UIApplication.shared.windows.max(by: { $0.windowLevel < $1.windowLevel })
+        {
             possibleKeyboardWindow = window
         }
         guard let keyboardWindow = possibleKeyboardWindow else {
@@ -63,11 +88,15 @@ public class HUDKeyboardHelper {
         var keyboardHeight: CGFloat = 0
         var keyboardOffset: CGFloat = onlyOnShow ? startOffset : 0
 
-        if let notification = lastNotification,
-           let keyboardInfo = notification.userInfo,
-           let keyboardFrame = keyboardInfo[UIResponder.keyboardFrameEndUserInfoKey] as? CGRect {
-
-            if notification.name == UIResponder.keyboardWillShowNotification || notification.name == UIResponder.keyboardDidShowNotification {
+        if
+            let notification = lastNotification,
+            let keyboardInfo = notification.userInfo,
+            let keyboardFrame = keyboardInfo[UIResponder.keyboardFrameEndUserInfoKey] as? CGRect
+        {
+            if
+                notification.name == UIResponder.keyboardWillShowNotification || notification.name == UIResponder
+                    .keyboardDidShowNotification
+            {
                 keyboardHeight = keyboardFrame.height
             }
         } else {
@@ -82,7 +111,7 @@ public class HUDKeyboardHelper {
 
     // Keyboard Handler
 
-    @objc 
+    @objc
     func keyboardChangePosition(notification: Notification) {
         lastNotification = notification
         delegate?.keyboardDidChangePosition()
@@ -93,6 +122,8 @@ public class HUDKeyboardHelper {
     }
 
 }
+
+// MARK: - HUDKeyboardHelperDelegate
 
 protocol HUDKeyboardHelperDelegate: AnyObject {
     func keyboardDidChangePosition()

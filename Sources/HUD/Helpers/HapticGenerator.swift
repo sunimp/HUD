@@ -7,9 +7,13 @@
 
 import UIKit
 
+// MARK: - HUDFeedbackGenerator
+
 public protocol HUDFeedbackGenerator {
     func notification(_ notification: HapticNotificationType)
 }
+
+// MARK: - HapticGenerator
 
 public class HapticGenerator: HUDFeedbackGenerator {
     
@@ -21,10 +25,10 @@ public class HapticGenerator: HUDFeedbackGenerator {
 
     public func notification(_ notification: HapticNotificationType) {
         switch notification {
-            case .error: notificationGenerator.notificationOccurred(.error)
-            case .success: notificationGenerator.notificationOccurred(.success)
-            case .warning: notificationGenerator.notificationOccurred(.warning)
-            case let .feedback(style): if impactStyle != style {
+        case .error: notificationGenerator.notificationOccurred(.error)
+        case .success: notificationGenerator.notificationOccurred(.success)
+        case .warning: notificationGenerator.notificationOccurred(.warning)
+        case .feedback(let style): if impactStyle != style {
                 impactGenerator = UIImpactFeedbackGenerator(style: style)
             }
             impactGenerator.impactOccurred()

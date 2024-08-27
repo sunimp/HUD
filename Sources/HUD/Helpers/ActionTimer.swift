@@ -9,9 +9,9 @@ import Foundation
 
 open class ActionTimer {
 
-    var handler: (() -> Void)?
+    var handler: (() -> Void)? = nil
 
-    static public func scheduledMainThreadTimer(
+    public static func scheduledMainThreadTimer(
         action: (() -> Void)?,
         interval: TimeInterval,
         repeats: Bool = false,
@@ -20,7 +20,14 @@ open class ActionTimer {
         let handledTimer = ActionTimer()
         handledTimer.handler = action
 
-        let timer = Timer(fireAt: Date(timeIntervalSinceNow: interval), interval: interval, target: handledTimer, selector: #selector(timerEvent), userInfo: nil, repeats: repeats)
+        let timer = Timer(
+            fireAt: Date(timeIntervalSinceNow: interval),
+            interval: interval,
+            target: handledTimer,
+            selector: #selector(timerEvent),
+            userInfo: nil,
+            repeats: repeats
+        )
         RunLoop.main.add(timer, forMode: runLoopModes)
 
         return timer

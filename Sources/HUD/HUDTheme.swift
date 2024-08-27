@@ -11,7 +11,7 @@ class HUDTheme {
 
     static let startAdjustSize: CGFloat = 0.8
     static let finishAdjustSize: CGFloat = 1
-    static let exactSize: Bool = false
+    static let exactSize = false
     static let preferredSize = CGSize(width: 114, height: 114)
     static let allowedSizeInPercentOfScreen = CGSize(width: 0.8, height: 0.8)
 
@@ -28,7 +28,7 @@ class HUDTheme {
     static let blurEffectStyle: UIBlurEffect.Style = .systemUltraThinMaterial
 
     static let blurEffectIntensity: CGFloat? = 0.4
-    static let backgroundColor: UIColor = UIColor(hex: 0x73798c, alpha: 0.2)
+    static let backgroundColor = UIColor(hex: 0x73798c, alpha: 0.2)
     static let cornerRadius: CGFloat = 9
 
     static let shadowRadius: CGFloat = 0

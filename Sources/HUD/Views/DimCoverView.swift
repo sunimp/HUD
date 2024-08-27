@@ -35,7 +35,7 @@ open class DimCoverView: HUDCoverView {
     }
 
     @available(*, unavailable)
-    required public init?(coder aDecoder: NSCoder) {
+    public required init?(coder _: NSCoder) {
         fatalError("init(coder:) has not been implemented")
     }
 
@@ -52,11 +52,17 @@ open class DimCoverView: HUDCoverView {
         delegate?.willShow()
         isHidden = false
         if animated {
-            UIView.animate(withDuration: model.coverInAnimationDuration, delay: 0, options: model.coverAnimationCurve, animations: {
-                self.dimBackgroundView.alpha = 1
-            }, completion: { [weak self] _ in
-                self?.delegate?.didShow()
-            })
+            UIView.animate(
+                withDuration: model.coverInAnimationDuration,
+                delay: 0,
+                options: model.coverAnimationCurve,
+                animations: {
+                    self.dimBackgroundView.alpha = 1
+                },
+                completion: { [weak self] _ in
+                    self?.delegate?.didShow()
+                }
+            )
         } else {
             dimBackgroundView.alpha = 1
             delegate?.didShow()
@@ -66,14 +72,20 @@ open class DimCoverView: HUDCoverView {
     override public func hide(animated: Bool, completion: (() -> Void)?) {
         delegate?.willHide()
         if animated {
-            UIView.animate(withDuration: model.coverOutAnimationDuration, delay: 0, options: model.coverAnimationCurve, animations: {
-                self.dimBackgroundView.alpha = 0
-            }, completion: { [weak self] _ in
-                self?.isHidden = true
+            UIView.animate(
+                withDuration: model.coverOutAnimationDuration,
+                delay: 0,
+                options: model.coverAnimationCurve,
+                animations: {
+                    self.dimBackgroundView.alpha = 0
+                },
+                completion: { [weak self] _ in
+                    self?.isHidden = true
 
-                self?.delegate?.didHide()
-                completion?()
-            })
+                    self?.delegate?.didHide()
+                    completion?()
+                }
+            )
         } else {
             dimBackgroundView.alpha = 0
             isHidden = true
@@ -89,7 +101,7 @@ open class DimCoverView: HUDCoverView {
         super.touchesEnded(touches, with: event)
     }
 
-    open override func layoutSubviews() {
+    override open func layoutSubviews() {
         super.layoutSubviews()
 
         dimBackgroundView.frame = bounds

@@ -7,6 +7,8 @@
 
 import UIKit
 
+// MARK: - HUDViewInterface
+
 protocol HUDViewInterface: AnyObject {
     var presenter: HUDViewPresenterInterface { get }
 
@@ -16,11 +18,15 @@ protocol HUDViewInterface: AnyObject {
     func safeCorrectedOffset(for inset: CGPoint, style: HUDBannerStyle?, relativeWindow: Bool) -> CGPoint
 }
 
+// MARK: - HUDViewRouterInterface
+
 protocol HUDViewRouterInterface: AnyObject {
     var view: HUDView? { get set }
     func show()
     func hide()
 }
+
+// MARK: - HUDViewPresenterInterface
 
 protocol HUDViewPresenterInterface: AnyObject {
     var interactor: HUDViewInteractorInterface { get }
@@ -34,9 +40,13 @@ protocol HUDViewPresenterInterface: AnyObject {
     func dismiss(animated: Bool, completion: (() -> Void)?)
 }
 
+// MARK: - HUDViewInteractorInterface
+
 protocol HUDViewInteractorInterface: AnyObject {
     var delegate: HUDViewInteractorDelegate? { get set }
 }
+
+// MARK: - HUDViewInteractorDelegate
 
 protocol HUDViewInteractorDelegate: AnyObject {
     func updateCover()

@@ -7,12 +7,16 @@
 
 import UIKit
 
-public enum HUDBannerStyle: Int { 
+// MARK: - HUDBannerStyle
+
+public enum HUDBannerStyle: Int {
     case top
     case right
     case bottom
     case left
 }
+
+// MARK: - HUDSizeAppearStyle
 
 public enum HUDSizeAppearStyle: Int {
     case horizontal
@@ -20,10 +24,14 @@ public enum HUDSizeAppearStyle: Int {
     case both
 }
 
+// MARK: - HUDStyle
+
 public enum HUDStyle {
     case banner(HUDBannerStyle)
     case center
 }
+
+// MARK: - HUDAppearStyle
 
 public enum HUDAppearStyle {
     case moveOut
@@ -31,11 +39,15 @@ public enum HUDAppearStyle {
     case sizeAppear(HUDSizeAppearStyle)
 }
 
-public enum HUDHandleKeyboardType { 
+// MARK: - HUDHandleKeyboardType
+
+public enum HUDHandleKeyboardType {
     case startPosition
     case always
     case none
 }
+
+// MARK: - HapticNotificationType
 
 public enum HapticNotificationType {
     case error
@@ -43,6 +55,8 @@ public enum HapticNotificationType {
     case warning
     case feedback(UIImpactFeedbackGenerator.FeedbackStyle)
 }
+
+// MARK: - HUDCoverModel
 
 public protocol HUDCoverModel {
     var coverInAnimationDuration: TimeInterval { get set }
@@ -54,6 +68,8 @@ public protocol HUDCoverModel {
 
     var userInteractionEnabled: Bool { get set }
 }
+
+// MARK: - HUDContainerModel
 
 public protocol HUDContainerModel {
     var startAdjustSize: CGFloat { get set }
@@ -73,6 +89,8 @@ public protocol HUDContainerModel {
     var borderColor: UIColor { get set }
 }
 
+// MARK: - HUDViewModel
+
 public protocol HUDViewModel {
     var userInteractionEnabled: Bool { get set }
     var handleKeyboard: HUDHandleKeyboardType { get set }
@@ -91,6 +109,8 @@ public protocol HUDViewModel {
     var animationCurve: UIView.AnimationOptions { get set }
 }
 
+// MARK: - HUDConfig
+
 public struct HUDConfig: HUDViewModel, HUDCoverModel, HUDContainerModel {
     public var style: HUDStyle = .banner(.top)
 
@@ -100,8 +120,9 @@ public struct HUDConfig: HUDViewModel, HUDCoverModel, HUDContainerModel {
 
     public var exactSize: Bool = HUDTheme.exactSize
     public var preferredSize: CGSize = HUDTheme.preferredSize
-    public var allowedMaximumSize: CGSize = HUDTheme.allowedSizeInPercentOfScreen // maximum HUD size limitation in percent by screen size
-    public var hudInset: CGPoint = CGPoint(x: 0, y: -8)
+    public var allowedMaximumSize: CGSize = HUDTheme
+        .allowedSizeInPercentOfScreen // maximum HUD size limitation in percent by screen size
+    public var hudInset = CGPoint(x: 0, y: -8)
     public var absoluteInsetsValue = false
 
     public var coverInAnimationDuration: TimeInterval = HUDTheme.coverAppearDuration
@@ -111,7 +132,7 @@ public struct HUDConfig: HUDViewModel, HUDCoverModel, HUDContainerModel {
     public var coverBlurEffectStyle: UIBlurEffect.Style? = nil
     public var coverBlurEffectIntensity: CGFloat? = HUDTheme.coverBlurEffectIntensity
 
-    public var userInteractionEnabled: Bool = true
+    public var userInteractionEnabled = true
     public var handleKeyboard: HUDHandleKeyboardType = .startPosition
 
     public var inAnimationDuration: TimeInterval = HUDTheme.appearDuration
@@ -121,7 +142,7 @@ public struct HUDConfig: HUDViewModel, HUDCoverModel, HUDContainerModel {
     public var cornerRadius: CGFloat = HUDTheme.cornerRadius
     public var blurEffectStyle: UIBlurEffect.Style? = HUDTheme.blurEffectStyle
     public var blurEffectIntensity: CGFloat? = HUDTheme.blurEffectIntensity
-    public var backgroundColor: UIColor = .clear //HUDTheme.backgroundColor
+    public var backgroundColor: UIColor = .clear // HUDTheme.backgroundColor
 
     public var shadowRadius: CGFloat = HUDTheme.shadowRadius
     public var borderWidth: CGFloat = HUDTheme.borderWidth

@@ -7,18 +7,22 @@
 
 import UIKit
 
+// MARK: - HUDCoverView
+
 open class HUDCoverView: UIView, CoverViewInterface {
     public weak var delegate: CoverViewDelegate?
-    public var transparent: Bool = false
+    public var transparent = false
     public var coverBackgroundColor: UIColor? = nil
 
     public var onTapCover: (() -> Void)? = nil
-    public var isVisible: Bool { return !isHidden }
+    public var isVisible: Bool { !isHidden }
 
-    public func show(animated: Bool) {}
+    public func show(animated _: Bool) { }
 
-    public func hide(animated: Bool, completion: (() -> Void)?) {}
+    public func hide(animated _: Bool, completion _: (() -> Void)?) { }
 }
+
+// MARK: - CoverViewInterface
 
 public protocol CoverViewInterface {
     var delegate: CoverViewDelegate? { get set }
@@ -37,17 +41,19 @@ public protocol CoverViewInterface {
 
 extension CoverViewInterface {
     public var appearDuration: TimeInterval {
-        return HUDTheme.coverAppearDuration
+        HUDTheme.coverAppearDuration
     }
 
     public var disappearDuration: TimeInterval {
-        return HUDTheme.coverDisappearDuration
+        HUDTheme.coverDisappearDuration
     }
 
     public var animationCurve: UIView.AnimationOptions {
-        return HUDTheme.coverAnimationCurve
+        HUDTheme.coverAnimationCurve
     }
 }
+
+// MARK: - CoverViewDelegate
 
 public protocol CoverViewDelegate: AnyObject {
 
@@ -59,11 +65,11 @@ public protocol CoverViewDelegate: AnyObject {
 }
 
 extension CoverViewDelegate {
-    func willShow() {}
+    func willShow() { }
 
-    func didShow() {}
+    func didShow() { }
 
-    func willHide() {}
+    func willHide() { }
 
-    func didHide() {}
+    func didHide() { }
 }

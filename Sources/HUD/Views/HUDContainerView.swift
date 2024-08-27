@@ -7,8 +7,10 @@
 
 import UIKit
 
-import UIExtensions
 import SnapKit
+import UIExtensions
+
+// MARK: - HUDAnimatedViewInterface
 
 public protocol HUDAnimatedViewInterface {
     var isAnimating: Bool { get }
@@ -19,9 +21,13 @@ public protocol HUDAnimatedViewInterface {
     func set(progress: Float)
 }
 
+// MARK: - HUDContentViewInterface
+
 public protocol HUDContentViewInterface: AnyObject {
     var actions: [HUDTimeAction] { get set }
 }
+
+// MARK: - HUDTappableViewInterface
 
 public protocol HUDTappableViewInterface: AnyObject {
     func isTappable() -> Bool
@@ -30,10 +36,12 @@ public protocol HUDTappableViewInterface: AnyObject {
 extension HUDTappableViewInterface {
 
     public func isTappable() -> Bool {
-        return true
+        true
     }
 
 }
+
+// MARK: - HUDContainerInterface
 
 public protocol HUDContainerInterface: AnyObject {
 
@@ -44,13 +52,15 @@ public protocol HUDContainerInterface: AnyObject {
     func hide(animated: Bool, appearStyle: HUDAppearStyle, offset: CGPoint, completion: (() -> Void)?)
 }
 
+// MARK: - HUDContainerView
+
 open class HUDContainerView: CustomIntensityVisualEffectView, HUDContainerInterface {
 
     private let model: HUDContainerModel
 
     private var _content: UIView?
     public var onTapContainer: (() -> Void)?
-    public var isVisible: Bool { return !isHidden }
+    public var isVisible: Bool { !isHidden }
 
     public init(withModel model: HUDContainerModel) {
         self.model = model
@@ -64,7 +74,7 @@ open class HUDContainerView: CustomIntensityVisualEffectView, HUDContainerInterf
     }
 
     @available(*, unavailable)
-    required public init?(coder aDecoder: NSCoder) {
+    public required init?(coder _: NSCoder) {
         fatalError("init(coder:) has not been implemented")
     }
 
@@ -102,20 +112,23 @@ open class HUDContainerView: CustomIntensityVisualEffectView, HUDContainerInterf
 
     public func outScreenOffset(for offset: CGPoint, style: HUDBannerStyle?) -> CGPoint {
         var outScreenOffset: CGPoint = offset
-        if let style = style {
+        if let style {
             switch style {
-                case .top:
-                    outScreenOffset.y = center.y - outScreenOffset.y - bounds.height
-                    outScreenOffset.x = center.x
-                case .left:
-                    outScreenOffset.x = center.x - outScreenOffset.x - bounds.width
-                    outScreenOffset.y = center.y
-                case .bottom:
-                    outScreenOffset.y = center.y - outScreenOffset.y + bounds.height
-                    outScreenOffset.x = center.x
-                case .right:
-                    outScreenOffset.x = center.x - outScreenOffset.x + bounds.width
-                    outScreenOffset.y = center.y
+            case .top:
+                outScreenOffset.y = center.y - outScreenOffset.y - bounds.height
+                outScreenOffset.x = center.x
+
+            case .left:
+                outScreenOffset.x = center.x - outScreenOffset.x - bounds.width
+                outScreenOffset.y = center.y
+
+            case .bottom:
+                outScreenOffset.y = center.y - outScreenOffset.y + bounds.height
+                outScreenOffset.x = center.x
+
+            case .right:
+                outScreenOffset.x = center.x - outScreenOffset.x + bounds.width
+                outScreenOffset.y = center.y
             }
         }
         return outScreenOffset
@@ -128,32 +141,33 @@ open class HUDContainerView: CustomIntensityVisualEffectView, HUDContainerInterf
         }
         let animateBlock: () -> Void
         switch appearStyle {
-            case .alphaAppear:
-                alpha = 0
-                self.transform = CGAffineTransform(scaleX: self.model.startAdjustSize, y: self.model.startAdjustSize)
-                animateBlock = {
-                    self.alpha = 1
-                    self.transform = CGAffineTransform.identity
-                }
-            case .moveOut:
-                alpha = 1
-                let viewCenter = center
+        case .alphaAppear:
+            alpha = 0
+            transform = CGAffineTransform(scaleX: model.startAdjustSize, y: model.startAdjustSize)
+            animateBlock = {
+                self.alpha = 1
+                self.transform = CGAffineTransform.identity
+            }
 
-                center = CGPoint(x: offset.x, y: offset.y)
-                self.transform = CGAffineTransform(scaleX: self.model.startAdjustSize, y: self.model.startAdjustSize)
-                animateBlock = {
-                    self.center = viewCenter
-                    self.transform = CGAffineTransform.identity
-                }
-            case .sizeAppear(let style):
-                alpha = 1
-                switch style {
-                    case .horizontal: self.transform = CGAffineTransform(scaleX: 0, y: model.startAdjustSize)
-                    case .vertical: self.transform = CGAffineTransform(scaleX: model.startAdjustSize, y: 0)
-                    case .both: self.transform = CGAffineTransform(scaleX: 0, y: 0)
+        case .moveOut:
+            alpha = 1
+            let viewCenter = center
 
-                }
-                animateBlock = { self.transform = CGAffineTransform.identity }
+            center = CGPoint(x: offset.x, y: offset.y)
+            transform = CGAffineTransform(scaleX: model.startAdjustSize, y: model.startAdjustSize)
+            animateBlock = {
+                self.center = viewCenter
+                self.transform = CGAffineTransform.identity
+            }
+
+        case .sizeAppear(let style):
+            alpha = 1
+            switch style {
+            case .horizontal: transform = CGAffineTransform(scaleX: 0, y: model.startAdjustSize)
+            case .vertical: transform = CGAffineTransform(scaleX: model.startAdjustSize, y: 0)
+            case .both: transform = CGAffineTransform(scaleX: 0, y: 0)
+            }
+            animateBlock = { self.transform = CGAffineTransform.identity }
         }
         isHidden = false
         if animated {
@@ -175,27 +189,29 @@ open class HUDContainerView: CustomIntensityVisualEffectView, HUDContainerInterf
         }
         let animateBlock: () -> Void
         switch appearStyle {
-            case .alphaAppear:
-                animateBlock = {
-                    self.alpha = 0
-                    self.transform = CGAffineTransform(scaleX: self.model.finishAdjustSize, y: self.model.finishAdjustSize)
-                }
-            case .moveOut:
-                animateBlock = {
-                    self.center = CGPoint(x: offset.x, y: offset.y)
-                    self.transform = CGAffineTransform(scaleX: self.model.finishAdjustSize, y: self.model.finishAdjustSize)
-                }
-            case .sizeAppear(let style):
-                let viewTransform: CGAffineTransform
+        case .alphaAppear:
+            animateBlock = {
+                self.alpha = 0
+                self.transform = CGAffineTransform(scaleX: self.model.finishAdjustSize, y: self.model.finishAdjustSize)
+            }
+
+        case .moveOut:
+            animateBlock = {
+                self.center = CGPoint(x: offset.x, y: offset.y)
+                self.transform = CGAffineTransform(scaleX: self.model.finishAdjustSize, y: self.model.finishAdjustSize)
+            }
+
+        case .sizeAppear(let style):
+            let viewTransform =
                 switch style {
-                    case .horizontal: viewTransform = CGAffineTransform(scaleX: .ulpOfOne, y: self.model.finishAdjustSize)
-                    case .vertical: viewTransform = CGAffineTransform(scaleX: self.model.finishAdjustSize, y: .ulpOfOne)
-                    case .both: viewTransform = CGAffineTransform(scaleX: .ulpOfOne, y: .ulpOfOne)
+                case .horizontal: CGAffineTransform(scaleX: .ulpOfOne, y: model.finishAdjustSize)
+                case .vertical: CGAffineTransform(scaleX: model.finishAdjustSize, y: .ulpOfOne)
+                case .both: CGAffineTransform(scaleX: .ulpOfOne, y: .ulpOfOne)
                 }
-                animateBlock = {
-                    self.alpha = 0.3
-                    self.transform = viewTransform
-                }
+            animateBlock = {
+                self.alpha = 0.3
+                self.transform = viewTransform
+            }
         }
         if animated {
             UIView.animate(withDuration: model.outAnimationDuration, delay: 0, options: model.animationCurve, animations: {

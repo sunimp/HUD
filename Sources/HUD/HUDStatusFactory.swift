@@ -7,10 +7,14 @@
 
 import UIKit
 
-public enum HUDProgressType { 
+// MARK: - HUDProgressType
+
+public enum HUDProgressType {
     case native
     case custom
 }
+
+// MARK: - HUDStatusType
 
 public enum HUDStatusType {
     case custom(UIImage)
@@ -20,13 +24,15 @@ public enum HUDStatusType {
     case error
 }
 
+// MARK: - HUDStatusFactory
+
 public class HUDStatusFactory {
     
     public static let shared = HUDStatusFactory()
 
     public var config = HUDStatusModel()
 
-    init() {}
+    init() { }
 
     public func view(
         type: HUDStatusType,
@@ -39,25 +45,40 @@ public class HUDStatusFactory {
 
         var progressType: HUDProgressType?
         switch type {
-            case .info: image = config.infoImage
-            case .error: image = config.errorImage
-            case .success: image = config.successImage
-            case let .progress(type): progressType = type
-            case let .custom(customImage): image = customImage
+        case .info: image = config.infoImage
+        case .error: image = config.errorImage
+        case .success: image = config.successImage
+        case .progress(let type): progressType = type
+        case .custom(let customImage): image = customImage
         }
-        if let progressType = progressType {
+        if let progressType {
             let animatedImageView: UIView & HUDAnimatedViewInterface
             switch progressType {
-                case .native: animatedImageView = NativeProgressView(activityIndicatorStyle: config.activityIndicatorStyle, color: config.activityIndicatorColor)
-                case .custom:
-                    let progressView = HUDProgressView(progress: config.customProgressValue, strokeLineWidth: config.customProgressLineWidth, radius: config.customProgressRadius, strokeColor: config.customProgressColor, donutColor: config.customDonutColor, duration: config.customProgressDuration)
-                    if let interval = config.customShowCancelInterval {
-                        imageViewActions.append(HUDTimeAction(type: .custom, interval: interval, action: { [weak self, weak progressView] in
+            case .native: animatedImageView = NativeProgressView(
+                    activityIndicatorStyle: config.activityIndicatorStyle,
+                    color: config.activityIndicatorColor
+                )
+
+            case .custom:
+                let progressView = HUDProgressView(
+                    progress: config.customProgressValue,
+                    strokeLineWidth: config.customProgressLineWidth,
+                    radius: config.customProgressRadius,
+                    strokeColor: config.customProgressColor,
+                    donutColor: config.customDonutColor,
+                    duration: config.customProgressDuration
+                )
+                if let interval = config.customShowCancelInterval {
+                    imageViewActions.append(HUDTimeAction(
+                        type: .custom,
+                        interval: interval,
+                        action: { [weak self, weak progressView] in
                             progressView?.appendInCenter(image: self?.config.cancelImage)
                             HapticGenerator.shared.notification(.feedback(.medium))
-                        }))
-                    }
-                    animatedImageView = progressView
+                        }
+                    ))
+                }
+                animatedImageView = progressView
             }
             imageViewActions.append(HUDTimeAction(type: .custom, interval: 0, action: {
                 animatedImageView.startAnimating()
@@ -72,7 +93,7 @@ public class HUDStatusFactory {
         }
 
         var titleLabel: UILabel?
-        if let title = title {
+        if let title {
             titleLabel = UILabel()
             titleLabel?.font = config.titleLabelFont
             titleLabel?.textColor = config.titleLabelColor
@@ -82,7 +103,7 @@ public class HUDStatusFactory {
         }
 
         var subtitleLabel: UILabel?
-        if let subtitle = subtitle {
+        if let subtitle {
             subtitleLabel = UILabel()
             subtitleLabel?.font = config.subtitleLabelFont
             subtitleLabel?.textColor = config.subtitleLabelColor
@@ -91,7 +112,13 @@ public class HUDStatusFactory {
             subtitleLabel?.text = subtitle
         }
 
-        let hudStatusView: HUDStatusView = HUDStatusView(frame: .zero, imageView: imageView, titleLabel: titleLabel, subtitleLabel: subtitleLabel, config: config)
+        let hudStatusView = HUDStatusView(
+            frame: .zero,
+            imageView: imageView,
+            titleLabel: titleLabel,
+            subtitleLabel: subtitleLabel,
+            config: config
+        )
 
         hudStatusView.actions.append(contentsOf: imageViewActions)
         if let showTimeInterval = config.showTimeInterval {

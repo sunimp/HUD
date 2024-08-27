@@ -17,7 +17,7 @@ public class HUDStatusView: UIView, HUDContentViewInterface, HUDTappableViewInte
     private var config: HUDStatusViewConfig
 
     public var progressView: HUDAnimatedViewInterface? {
-        return imageView as? HUDAnimatedViewInterface
+        imageView as? HUDAnimatedViewInterface
     }
 
     public var actions: [HUDTimeAction] = []
@@ -34,14 +34,14 @@ public class HUDStatusView: UIView, HUDContentViewInterface, HUDTappableViewInte
     }
 
     @available(*, unavailable)
-    required public init?(coder aDecoder: NSCoder) {
+    public required init?(coder _: NSCoder) {
         fatalError("init(coder:) has not been implemented")
     }
 
     private func commonInit() {
         translatesAutoresizingMaskIntoConstraints = false
 
-        if let subtitleLabel = subtitleLabel {
+        if let subtitleLabel {
             addSubview(subtitleLabel)
             subtitleLabel.snp.makeConstraints { maker in
                 maker.leading.equalToSuperview().inset(HUDStatusViewTheme.textInsets.left)
@@ -49,7 +49,7 @@ public class HUDStatusView: UIView, HUDContentViewInterface, HUDTappableViewInte
                 maker.bottom.equalToSuperview().inset(HUDStatusViewTheme.textInsets.bottom)
             }
         }
-        if let titleLabel = titleLabel {
+        if let titleLabel {
             addSubview(titleLabel)
             titleLabel.snp.makeConstraints { maker in
                 if imageView == nil {
@@ -57,7 +57,7 @@ public class HUDStatusView: UIView, HUDContentViewInterface, HUDTappableViewInte
                 }
                 maker.leading.equalToSuperview().inset(config.textInsets.left)
                 maker.trailing.equalToSuperview().inset(config.textInsets.right)
-                if let subtitleLabel = subtitleLabel {
+                if let subtitleLabel {
                     maker.bottom.equalTo(subtitleLabel.snp.top).offset(-config.titleBottomPadding)
                 } else {
                     if imageView == nil {
@@ -68,7 +68,7 @@ public class HUDStatusView: UIView, HUDContentViewInterface, HUDTappableViewInte
                 }
             }
         }
-        if let imageView = imageView {
+        if let imageView {
             addSubview(imageView)
             imageView.snp.makeConstraints { maker in
                 maker.centerX.equalToSuperview()

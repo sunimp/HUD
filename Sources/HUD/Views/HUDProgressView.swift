@@ -25,7 +25,7 @@ public class HUDProgressView: UIView, HUDAnimatedViewInterface, HUDTappableViewI
     private var progress: Float?
     private var duration: TimeInterval
 
-    public var centerPoint: CGFloat { return radius + strokeLineWidth / 2 }
+    public var centerPoint: CGFloat { radius + strokeLineWidth / 2 }
     public var clockwise = true
     public var isAnimating = false
 
@@ -38,6 +38,7 @@ public class HUDProgressView: UIView, HUDAnimatedViewInterface, HUDTappableViewI
             }
         }
     }
+
     override open var bounds: CGRect {
         didSet {
             if !bounds.equalTo(oldValue) {
@@ -45,11 +46,12 @@ public class HUDProgressView: UIView, HUDAnimatedViewInterface, HUDTappableViewI
             }
         }
     }
+
     var indefiniteAnimatedLayer: CAShapeLayer {
         if let layer = _indefiniteAnimatedLayer {
             return layer
         }
-        if progress != nil, let donutColor = donutColor {
+        if progress != nil, let donutColor {
             // add background donut layer
             let path = smootherPath(startAngle: CGFloat.pi * 0, endAngle: CGFloat.pi * 2)
 
@@ -98,14 +100,27 @@ public class HUDProgressView: UIView, HUDAnimatedViewInterface, HUDTappableViewI
 
     func smootherPath(startAngle: CGFloat, endAngle: CGFloat) -> UIBezierPath {
         let arcCenter = CGPoint(x: centerPoint, y: centerPoint)
-        return UIBezierPath(arcCenter: arcCenter, radius: radius, startAngle: startAngle, endAngle: endAngle, clockwise: clockwise)
+        return UIBezierPath(
+            arcCenter: arcCenter,
+            radius: radius,
+            startAngle: startAngle,
+            endAngle: endAngle,
+            clockwise: clockwise
+        )
     }
 
-    override open func sizeThatFits(_ size: CGSize) -> CGSize {
-        return CGSize(width: centerPoint * 2, height: centerPoint * 2)
+    override open func sizeThatFits(_: CGSize) -> CGSize {
+        CGSize(width: centerPoint * 2, height: centerPoint * 2)
     }
 
-    public init(progress: Float? = nil, strokeLineWidth: CGFloat, radius: CGFloat, strokeColor: UIColor, donutColor: UIColor? = nil, duration: TimeInterval = 1) {
+    public init(
+        progress: Float? = nil,
+        strokeLineWidth: CGFloat,
+        radius: CGFloat,
+        strokeColor: UIColor,
+        donutColor: UIColor? = nil,
+        duration: TimeInterval = 1
+    ) {
         self.progress = progress
         self.duration = duration
         self.strokeLineWidth = strokeLineWidth
@@ -118,7 +133,7 @@ public class HUDProgressView: UIView, HUDAnimatedViewInterface, HUDTappableViewI
     }
 
     @available(*, unavailable)
-    required public init?(coder aDecoder: NSCoder) {
+    public required init?(coder _: NSCoder) {
         fatalError("init(coder:) has not been implemented")
     }
 
@@ -147,7 +162,7 @@ public class HUDProgressView: UIView, HUDAnimatedViewInterface, HUDTappableViewI
     }
 
     public func isTappable() -> Bool {
-        return centerImageView != nil
+        centerImageView != nil
     }
 
     public func set(radius: CGFloat) {
@@ -163,7 +178,7 @@ public class HUDProgressView: UIView, HUDAnimatedViewInterface, HUDTappableViewI
     }
 
     public func set(strokeThickness: CGFloat) {
-        self.strokeLineWidth = strokeThickness
+        strokeLineWidth = strokeThickness
         _baseLayer?.lineWidth = strokeThickness
         _indefiniteAnimatedLayer?.lineWidth = strokeThickness
     }
@@ -182,12 +197,12 @@ public class HUDProgressView: UIView, HUDAnimatedViewInterface, HUDTappableViewI
             // can't change progress from indefinite to custom value
             return
         }
-        let endAngle: CGFloat
-        if clockwise {
-            endAngle = CGFloat.pi * CGFloat(1.5 + 2 * progress)
-        } else {
-            endAngle = CGFloat.pi * CGFloat(1.5 - 2 * progress)
-        }
+        let endAngle =
+            if clockwise {
+                CGFloat.pi * CGFloat(1.5 + 2 * progress)
+            } else {
+                CGFloat.pi * CGFloat(1.5 - 2 * progress)
+            }
         _indefiniteAnimatedLayer?.path = smootherPath(startAngle: CGFloat.pi * 1.5, endAngle: endAngle).cgPath
         self.progress = progress
     }

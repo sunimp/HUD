@@ -20,13 +20,13 @@ class HUDWindow: ThemeWindow {
         }
     }
 
-    var transparent: Bool = false
+    var transparent = false
     
     init(
         windowScene: UIWindowScene,
         rootController: UIViewController,
         level: UIWindow.Level = UIWindow.Level.normal,
-        cornerRadius: CGFloat = 0
+        cornerRadius _: CGFloat = 0
     ) {
         super.init(windowScene: windowScene)
 
@@ -37,7 +37,7 @@ class HUDWindow: ThemeWindow {
     }
 
     @available(*, unavailable)
-    required init?(coder aDecoder: NSCoder) {
+    required init?(coder _: NSCoder) {
         fatalError("init(coder:) has not been implemented")
     }
 

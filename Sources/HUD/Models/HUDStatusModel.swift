@@ -7,6 +7,8 @@
 
 import UIKit
 
+// MARK: - HUDStatusViewConfig
+
 public protocol HUDStatusViewConfig {
     var imageInsets: UIEdgeInsets { get }
     var textInsets: UIEdgeInsets { get }
@@ -14,6 +16,8 @@ public protocol HUDStatusViewConfig {
     var imageBottomPadding: CGFloat { get }
     var titleBottomPadding: CGFloat { get }
 }
+
+// MARK: - HUDStatusModel
 
 public class HUDStatusModel: HUDStatusViewConfig {
     public var successImage: UIImage?
@@ -35,15 +39,15 @@ public class HUDStatusModel: HUDStatusViewConfig {
     public var imageTintColor: UIColor?
     public var imageContentMode = UIView.ContentMode.center
 
-    public var titleLabelFont: UIFont = UIFont.systemFont(ofSize: 17)
+    public var titleLabelFont = UIFont.systemFont(ofSize: 17)
     public var titleLabelColor: UIColor = .black
     public var titleLabelAlignment: NSTextAlignment = .center
-    public var titleLabelLinesCount: Int = 0
+    public var titleLabelLinesCount = 0
 
-    public var subtitleLabelFont: UIFont = UIFont.systemFont(ofSize: 15)
+    public var subtitleLabelFont = UIFont.systemFont(ofSize: 15)
     public var subtitleLabelColor: UIColor = .black
     public var subtitleLabelAlignment: NSTextAlignment = .center
-    public var subtitleLabelLinesCount: Int = 2
+    public var subtitleLabelLinesCount = 2
 
     public var showTimeInterval: TimeInterval?
     public var dismissTimeInterval: TimeInterval?

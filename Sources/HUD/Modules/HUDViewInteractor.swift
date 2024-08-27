@@ -7,16 +7,20 @@
 
 import Foundation
 
-public enum HUDTimeActionType { 
+// MARK: - HUDTimeActionType
+
+public enum HUDTimeActionType {
     case show
     case dismiss
     case custom
 }
 
+// MARK: - HUDTimeAction
+
 public struct HUDTimeAction {
     var type: HUDTimeActionType
     var interval: TimeInterval
-    var action: (() -> Void)?
+    var action: (() -> Void)? = nil
 
     init(type: HUDTimeActionType, interval: TimeInterval, action: (() -> Void)? = nil) {
         self.type = type
@@ -25,6 +29,8 @@ public struct HUDTimeAction {
     }
 
 }
+
+// MARK: - HUDViewInteractor
 
 class HUDViewInteractor: HUDViewInteractorInterface {
     

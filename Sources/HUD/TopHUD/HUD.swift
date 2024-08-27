@@ -9,6 +9,8 @@ import UIKit
 
 import UIExtensions
 
+// MARK: - IHudMode
+
 public protocol IHudMode {
     var id: Int { get }
     var icon: UIImage? { get }
@@ -17,6 +19,8 @@ public protocol IHudMode {
     var loadingState: Float? { get }
 }
 
+// MARK: - HUD
+
 public class HUD {
     
     public static let shared = HUD()
@@ -24,9 +28,9 @@ public class HUD {
     let keyboardNotificationHandler: HUDKeyboardHelper
     
     public var config: HUDConfig
-    var view: HUDView?
+    var view: HUDView? = nil
     
-    public var animated: Bool = true
+    public var animated = true
     
     init(config: HUDConfig? = nil, keyboardNotifications: HUDKeyboardHelper = .shared) {
         self.config = config ?? HUDConfig()
@@ -52,12 +56,20 @@ public class HUD {
     ) {
         self.animated = animated
         
-        let maxSize = CGSize(width: UIScreen.main.bounds.width * config.allowedMaximumSize.width, height: UIScreen.main.bounds.height * config.allowedMaximumSize.height)
+        let maxSize = CGSize(
+            width: UIScreen.main.bounds.width * config.allowedMaximumSize.width,
+            height: UIScreen.main.bounds.height * config.allowedMaximumSize.height
+        )
         
-        if let view = view {
+        if let view {
             view.set(config: config)
             
-            view.containerView.setContent(content: content, preferredSize: config.preferredSize, maxSize: maxSize, exact: config.exactSize)
+            view.containerView.setContent(
+                content: content,
+                preferredSize: config.preferredSize,
+                maxSize: maxSize,
+                exact: config.exactSize
+            )
             view.adjustPlace()
         } else { // if it's no view, create new and show
             guard let windowScene = UIWindow.keyWindow?.windowScene else {
@@ -79,9 +91,20 @@ public class HUD {
                 }
             }
             containerView.isHidden = true
-            containerView.setContent(content: content, preferredSize: config.preferredSize, maxSize: maxSize, exact: config.exactSize)
+            containerView.setContent(
+                content: content,
+                preferredSize: config.preferredSize,
+                maxSize: maxSize,
+                exact: config.exactSize
+            )
             
-            view = HUD.create(config: config, router: self, backgroundWindow: coverWindow, containerView: containerView, statusBarStyle: statusBarStyle)
+            view = HUD.create(
+                config: config,
+                router: self,
+                backgroundWindow: coverWindow,
+                containerView: containerView,
+                statusBarStyle: statusBarStyle
+            )
             view?.keyboardNotificationHandler = keyboardNotificationHandler
             
             if content.actions.firstIndex(where: { $0.type == .show }) == nil {
@@ -95,6 +118,8 @@ public class HUD {
     
 }
 
+// MARK: HUDViewRouterInterface
+
 extension HUD: HUDViewRouterInterface {
     
     class func create(
@@ -104,10 +129,21 @@ extension HUD: HUDViewRouterInterface {
         containerView: HUDContainerView,
         statusBarStyle: UIStatusBarStyle? = nil
     ) -> HUDView {
-        
         let interactor: HUDViewInteractorInterface = HUDViewInteractor()
-        let presenter: HUDViewPresenterInterface & HUDViewInteractorDelegate = HUDViewPresenter(interactor: interactor, router: router, coverView: backgroundWindow.coverView, containerView: containerView, config: config)
-        let view = HUDView(presenter: presenter, config: config, backgroundWindow: backgroundWindow, containerView: containerView, statusBarStyle: statusBarStyle)
+        let presenter: HUDViewPresenterInterface & HUDViewInteractorDelegate = HUDViewPresenter(
+            interactor: interactor,
+            router: router,
+            coverView: backgroundWindow.coverView,
+            containerView: containerView,
+            config: config
+        )
+        let view = HUDView(
+            presenter: presenter,
+            config: config,
+            backgroundWindow: backgroundWindow,
+            containerView: containerView,
+            statusBarStyle: statusBarStyle
+        )
         
         presenter.feedbackGenerator = HapticGenerator.shared
         presenter.view = view
@@ -142,7 +178,7 @@ extension HUD: HUDViewRouterInterface {
             })
         }
         
-        if forced, let view = view {
+        if forced, let view {
             view.hide(animated: true) {
                 showBlock()
             }
@@ -165,6 +201,8 @@ extension HUD: HUDViewRouterInterface {
     }
     
 }
+
+// MARK: HUD.ViewItem
 
 extension HUD {
     

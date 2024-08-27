@@ -7,9 +7,11 @@
 
 import UIKit
 
-import UIExtensions
 import SnapKit
 import ThemeKit
+import UIExtensions
+
+// MARK: - TopHUDContentView
 
 class TopHUDContentView: UIView {
     
@@ -17,7 +19,7 @@ class TopHUDContentView: UIView {
     private let imageView = UIImageView()
     private let titleLabel = UILabel()
 
-    private var loading: Bool = false
+    private var loading = false
     public var actions: [HUDTimeAction] = []
 
     init() {
@@ -50,7 +52,7 @@ class TopHUDContentView: UIView {
     }
 
     @available(*, unavailable)
-    required init?(coder aDecoder: NSCoder) {
+    required init?(coder _: NSCoder) {
         fatalError("init(coder:) has not been implemented")
     }
 }
@@ -90,6 +92,8 @@ extension TopHUDContentView {
     }
 
 }
+
+// MARK: HUDContentViewInterface, HUDTappableViewInterface
 
 extension TopHUDContentView: HUDContentViewInterface, HUDTappableViewInterface {
     public func isTappable() -> Bool { true }

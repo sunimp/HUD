@@ -36,8 +36,7 @@ class HUDViewPresenter: HUDViewPresenterInterface, HUDViewInteractorDelegate, Co
         self.coverView.delegate = self
     }
 
-    func viewDidLoad() {
-    }
+    func viewDidLoad() { }
 
     func updateCover() {
         if coverView.transparent {
@@ -52,7 +51,12 @@ class HUDViewPresenter: HUDViewPresenterInterface, HUDViewInteractorDelegate, Co
         if case .banner(let bannerStyle) = config.style {
             style = bannerStyle
         }
-        let correctedOffset = containerView.outScreenOffset(for: config.absoluteInsetsValue ? config.hudInset : view?.safeCorrectedOffset(for: config.hudInset, style: style, relativeWindow: true) ?? .zero, style: style)
+        let correctedOffset = containerView.outScreenOffset(
+            for: config.absoluteInsetsValue
+                ? config.hudInset
+                : view?.safeCorrectedOffset(for: config.hudInset, style: style, relativeWindow: true) ?? .zero,
+            style: style
+        )
         containerView.show(animated: true, appearStyle: config.appearStyle, offset: correctedOffset, completion: completion)
     }
 
@@ -71,10 +75,20 @@ class HUDViewPresenter: HUDViewPresenterInterface, HUDViewInteractorDelegate, Co
         if case .banner(let bannerStyle) = config.style {
             style = bannerStyle
         }
-        let correctedOffset = containerView.outScreenOffset(for: config.absoluteInsetsValue ? config.hudInset : view?.safeCorrectedOffset(for: config.hudInset, style: style, relativeWindow: true) ?? .zero, style: style)
-        containerView.hide(animated: animated, appearStyle: config.appearStyle, offset: correctedOffset, completion: { [weak self] in
-            self?.completeDismiss(completion: completion)
-        })
+        let correctedOffset = containerView.outScreenOffset(
+            for: config.absoluteInsetsValue
+                ? config.hudInset
+                : view?.safeCorrectedOffset(for: config.hudInset, style: style, relativeWindow: true) ?? .zero,
+            style: style
+        )
+        containerView.hide(
+            animated: animated,
+            appearStyle: config.appearStyle,
+            offset: correctedOffset,
+            completion: { [weak self] in
+                self?.completeDismiss(completion: completion)
+            }
+        )
         coverView.hide(animated: animated, completion: { [weak self] in
             self?.completeDismiss(completion: completion)
         })
@@ -82,7 +96,6 @@ class HUDViewPresenter: HUDViewPresenterInterface, HUDViewInteractorDelegate, Co
 
     func completeDismiss(completion: (() -> Void)? = nil) {
         if !(containerView.isVisible || coverView.isVisible) {
-
             router.view?.window = nil
             router.view = nil
             completion?()
@@ -107,7 +120,7 @@ class HUDViewPresenter: HUDViewPresenterInterface, HUDViewInteractorDelegate, Co
     }
 
     func removeAllTimers() {
-        timers.forEach { timer in
+        for timer in timers {
             timer.invalidate()
         }
         timers.removeAll()

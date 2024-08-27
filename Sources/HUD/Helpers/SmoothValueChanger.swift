@@ -14,10 +14,10 @@ public class SmoothValueChanger {
     let fullChangeTime: TimeInterval
     let stepValue: Float
 
-    var onChangeValue: ((Float) -> Void)?
-    var onFinishChanging: ((Float) -> Void)?
+    var onChangeValue: ((Float) -> Void)? = nil
+    var onFinishChanging: ((Float) -> Void)? = nil
 
-    private var timer: Timer?
+    private var timer: Timer? = nil
 
     public init(
         initialValue: Float,
@@ -26,7 +26,7 @@ public class SmoothValueChanger {
         onChangeValue: ((Float) -> Void)?,
         onFinishChanging: ((Float) -> Void)? = nil
     ) {
-        self.currentValue = initialValue
+        currentValue = initialValue
         self.stepValue = stepValue
         self.fullChangeTime = fullChangeTime
         self.onChangeValue = onChangeValue
@@ -40,7 +40,7 @@ public class SmoothValueChanger {
         if value > currentValue {
             let timeByStep = fullChangeTime * TimeInterval(stepValue)
             timer = ActionTimer.scheduledMainThreadTimer(action: { [weak self] in
-                guard let currentValue = self?.currentValue  else {
+                guard let currentValue = self?.currentValue else {
                     self?.timer?.invalidate()
                     self?.timer = nil
                     return
