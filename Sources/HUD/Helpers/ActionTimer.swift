@@ -9,7 +9,7 @@ import Foundation
 
 open class ActionTimer {
 
-    var handler: (() -> Void)? = nil
+    var handler: (() -> Void)?
 
     public static func scheduledMainThreadTimer(
         action: (() -> Void)?,

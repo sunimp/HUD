@@ -14,10 +14,10 @@ public class SmoothValueChanger {
     let fullChangeTime: TimeInterval
     let stepValue: Float
 
-    var onChangeValue: ((Float) -> Void)? = nil
-    var onFinishChanging: ((Float) -> Void)? = nil
+    var onChangeValue: ((Float) -> Void)?
+    var onFinishChanging: ((Float) -> Void)?
 
-    private var timer: Timer? = nil
+    private var timer: Timer?
 
     public init(
         initialValue: Float,

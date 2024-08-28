@@ -10,10 +10,11 @@ import UIKit
 // MARK: - HUDKeyboardHelper
 
 public class HUDKeyboardHelper {
+    
     public static let shared = HUDKeyboardHelper()
 
-    public var lastNotification: Notification? = nil
-    weak var delegate: HUDKeyboardHelperDelegate? = nil
+    public var lastNotification: Notification?
+    weak var delegate: HUDKeyboardHelperDelegate?
 
     init() {
         registerKeyboardNotifications()

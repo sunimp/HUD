@@ -20,7 +20,7 @@ public enum HUDTimeActionType {
 public struct HUDTimeAction {
     var type: HUDTimeActionType
     var interval: TimeInterval
-    var action: (() -> Void)? = nil
+    var action: (() -> Void)?
 
     init(type: HUDTimeActionType, interval: TimeInterval, action: (() -> Void)? = nil) {
         self.type = type

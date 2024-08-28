@@ -28,7 +28,7 @@ public class HUD {
     let keyboardNotificationHandler: HUDKeyboardHelper
     
     public var config: HUDConfig
-    var view: HUDView? = nil
+    var view: HUDView?
     
     public var animated = true
     
