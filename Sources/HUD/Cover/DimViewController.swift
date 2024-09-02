@@ -1,8 +1,7 @@
 //
 //  DimViewController.swift
-//  HUD
 //
-//  Created by Sun on 2024/8/19.
+//  Created by Sun on 2022/10/6.
 //
 
 import UIKit
@@ -12,8 +11,11 @@ import SnapKit
 // MARK: - DimViewController
 
 class DimViewController: UIViewController {
-    
+    // MARK: Properties
+
     private var coverView: DimCoverView
+
+    // MARK: Lifecycle
 
     init(coverView: DimCoverView) {
         self.coverView = coverView
@@ -26,6 +28,8 @@ class DimViewController: UIViewController {
         fatalError("init(coder:) has not been implemented")
     }
 
+    // MARK: Overridden Functions
+
     override func viewDidLoad() {
         super.viewDidLoad()
 
@@ -35,14 +39,11 @@ class DimViewController: UIViewController {
             maker.edges.equalToSuperview()
         }
     }
-
 }
 
 extension DimViewController {
-
     var onTap: (() -> Void)? {
         get { coverView.onTapCover }
         set { coverView.onTapCover = newValue }
     }
-
 }

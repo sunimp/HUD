@@ -1,8 +1,7 @@
 //
 //  HUDViewModule.swift
-//  HUD
 //
-//  Created by Sun on 2024/8/19.
+//  Created by Sun on 2021/11/30.
 //
 
 import UIKit
@@ -53,4 +52,3 @@ protocol HUDViewInteractorDelegate: AnyObject {
     func showContainerView(animated: Bool, completion: (() -> Void)?)
     func dismiss(animated: Bool, completion: (() -> Void)?)
 }
-

@@ -1,8 +1,7 @@
 //
 //  HUDWindow.swift
-//  HUD
 //
-//  Created by Sun on 2024/8/19.
+//  Created by Sun on 2021/11/30.
 //
 
 import UIKit
@@ -11,7 +10,8 @@ import SnapKit
 import ThemeKit
 
 class HUDWindow: ThemeWindow {
-    
+    // MARK: Overridden Properties
+
     override var frame: CGRect {
         didSet { // IMPORTANT. When window is square safeAreaInsets in willTransition controller rotate not changing!
             if abs(frame.height - frame.width) < 1 / UIScreen.main.scale {
@@ -20,8 +20,12 @@ class HUDWindow: ThemeWindow {
         }
     }
 
+    // MARK: Properties
+
     var transparent = false
-    
+
+    // MARK: Lifecycle
+
     init(
         windowScene: UIWindowScene,
         rootController: UIViewController,
@@ -41,6 +45,8 @@ class HUDWindow: ThemeWindow {
         fatalError("init(coder:) has not been implemented")
     }
 
+    // MARK: Overridden Functions
+
     override func hitTest(_ point: CGPoint, with event: UIEvent?) -> UIView? {
         if transparent {
             return nil
@@ -48,5 +54,4 @@ class HUDWindow: ThemeWindow {
 
         return super.hitTest(point, with: event)
     }
-
 }

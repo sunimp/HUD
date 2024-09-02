@@ -1,8 +1,7 @@
 //
 //  HUDView.swift
-//  HUD
 //
-//  Created by Sun on 2024/8/19.
+//  Created by Sun on 2021/11/30.
 //
 
 import UIKit
@@ -13,26 +12,31 @@ import UIExtensions
 // MARK: - HUDView
 
 class HUDView: UIViewController, HUDViewInterface {
-    
+    // MARK: Properties
+
+    public var showCompletion: (() -> Void)?
+    public var dismissCompletion: (() -> Void)?
+
     let presenter: HUDViewPresenterInterface
     var config: HUDViewModel
     var window: UIWindow?
     var backgroundWindow: BackgroundHUDWindow
-    var holderView: UIView? { window }
     let statusBarStyle: UIStatusBarStyle?
 
     let containerView: HUDContainerView
 
+    var visibleKeyboardOffset: CGFloat = 0
+
+    // MARK: Computed Properties
+
+    var holderView: UIView? { window }
     var keyboardNotificationHandler: HUDKeyboardHelper? {
         didSet {
             keyboardNotificationHandler?.delegate = self
         }
     }
 
-    var visibleKeyboardOffset: CGFloat = 0
-
-    public var showCompletion: (() -> Void)?
-    public var dismissCompletion: (() -> Void)?
+    // MARK: Lifecycle
 
     init(
         presenter: HUDViewPresenterInterface,
@@ -55,15 +59,17 @@ class HUDView: UIViewController, HUDViewInterface {
         fatalError("init(coder:) has not been implemented")
     }
 
+    deinit {
+//        print("Deinit viewController \(self)")
+    }
+
+    // MARK: Overridden Functions
+
     override func viewDidLoad() {
         super.viewDidLoad()
 
         view.addSubview(containerView)
         presenter.viewDidLoad()
-    }
-
-    func place() {
-        place(holderView: holderView)
     }
 
     override func viewWillTransition(to size: CGSize, with coordinator: UIViewControllerTransitionCoordinator) {
@@ -76,6 +82,12 @@ class HUDView: UIViewController, HUDViewInterface {
         }, completion: { _ in
             self.window?.clipsToBounds = false
         })
+    }
+
+    // MARK: Functions
+
+    func place() {
+        place(holderView: holderView)
     }
 
     func set(config: HUDConfig) {
@@ -97,7 +109,7 @@ class HUDView: UIViewController, HUDViewInterface {
         holderView?.frame.size = containerView.frame.size
         switch config.style {
         case .center: adjustViewCenter(for: holderView)
-        case .banner(let style): adjustViewCenter(for: holderView, style: style)
+        case let .banner(style): adjustViewCenter(for: holderView, style: style)
         }
     }
 
@@ -114,7 +126,6 @@ class HUDView: UIViewController, HUDViewInterface {
         let screenCenter = CGPoint(x: UIScreen.main.bounds.width / 2, y: UIScreen.main.bounds.height / 2)
         let contentCenter = CGPoint(x: containerView.frame.size.width / 2, y: containerView.frame.size.height / 2)
 
-
         let centerOffset = config.absoluteInsetsValue
             ? config.hudInset
             : safeCorrectedOffset(
@@ -127,12 +138,21 @@ class HUDView: UIViewController, HUDViewInterface {
             switch style {
             case .top:
                 CGPoint(x: screenCenter.x + centerOffset.x, y: contentCenter.y + centerOffset.y)
+
             case .left:
                 CGPoint(x: contentCenter.x + centerOffset.x, y: screenCenter.y + centerOffset.y)
+
             case .bottom:
-                CGPoint(x: screenCenter.x + centerOffset.x, y: UIScreen.main.bounds.height - contentCenter.y + centerOffset.y)
+                CGPoint(
+                    x: screenCenter.x + centerOffset.x,
+                    y: UIScreen.main.bounds.height - contentCenter.y + centerOffset.y
+                )
+
             case .right:
-                CGPoint(x: UIScreen.main.bounds.width - contentCenter.x + centerOffset.x, y: screenCenter.y + centerOffset.y)
+                CGPoint(
+                    x: UIScreen.main.bounds.width - contentCenter.x + centerOffset.x,
+                    y: screenCenter.y + centerOffset.y
+                )
             }
 
         set(viewCenter, for: holderView, useConstraints: false)
@@ -184,23 +204,15 @@ class HUDView: UIViewController, HUDViewInterface {
         }
         return correctedOffset
     }
-
-    deinit {
-//        print("Deinit viewController \(self)")
-    }
-
 }
 
 extension HUDView {
-
     func hide(animated: Bool, completion: (() -> Void)? = nil) {
         presenter.dismiss(animated: animated, completion: completion)
     }
-
 }
 
 extension HUDView {
-
     override var supportedInterfaceOrientations: UIInterfaceOrientationMask {
         if let rootViewController = UIApplication.shared.delegate?.window??.rootViewController {
             rootViewController.supportedInterfaceOrientations
@@ -242,15 +254,12 @@ extension HUDView {
             true
         }
     }
-
 }
 
 // MARK: HUDKeyboardHelperDelegate
 
 extension HUDView: HUDKeyboardHelperDelegate {
-
     func keyboardDidChangePosition() {
         place(holderView: holderView)
     }
-
 }

@@ -1,14 +1,12 @@
 //
 //  HUDTheme.swift
-//  HUD
 //
-//  Created by Sun on 2024/8/19.
+//  Created by Sun on 2021/11/30.
 //
 
 import UIKit
 
 class HUDTheme {
-
     static let startAdjustSize: CGFloat = 0.8
     static let finishAdjustSize: CGFloat = 1
     static let exactSize = false
@@ -28,7 +26,7 @@ class HUDTheme {
     static let blurEffectStyle: UIBlurEffect.Style = .systemUltraThinMaterial
 
     static let blurEffectIntensity: CGFloat? = 0.4
-    static let backgroundColor = UIColor(hex: 0x73798c, alpha: 0.2)
+    static let backgroundColor = UIColor(hex: 0x73798C, alpha: 0.2)
     static let cornerRadius: CGFloat = 9
 
     static let shadowRadius: CGFloat = 0

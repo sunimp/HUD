@@ -1,8 +1,7 @@
 //
 //  HUDContainerView.swift
-//  HUD
 //
-//  Created by Sun on 2024/8/19.
+//  Created by Sun on 2021/11/30.
 //
 
 import UIKit
@@ -34,17 +33,14 @@ public protocol HUDTappableViewInterface: AnyObject {
 }
 
 extension HUDTappableViewInterface {
-
     public func isTappable() -> Bool {
         true
     }
-
 }
 
 // MARK: - HUDContainerInterface
 
 public protocol HUDContainerInterface: AnyObject {
-
     var isVisible: Bool { get }
 
     func outScreenOffset(for offset: CGPoint, style: HUDBannerStyle?) -> CGPoint
@@ -55,12 +51,19 @@ public protocol HUDContainerInterface: AnyObject {
 // MARK: - HUDContainerView
 
 open class HUDContainerView: CustomIntensityVisualEffectView, HUDContainerInterface {
+    // MARK: Properties
+
+    public var onTapContainer: (() -> Void)?
 
     private let model: HUDContainerModel
 
     private var _content: UIView?
-    public var onTapContainer: (() -> Void)?
+
+    // MARK: Computed Properties
+
     public var isVisible: Bool { !isHidden }
+
+    // MARK: Lifecycle
 
     public init(withModel model: HUDContainerModel) {
         self.model = model
@@ -78,16 +81,21 @@ open class HUDContainerView: CustomIntensityVisualEffectView, HUDContainerInterf
         fatalError("init(coder:) has not been implemented")
     }
 
-    private func setup() {
-        translatesAutoresizingMaskIntoConstraints = false
-
-        backgroundColor = model.backgroundColor
-        layer.cornerRadius = model.cornerRadius
-        clipsToBounds = true
-
-        layer.borderWidth = model.borderWidth
-        layer.borderColor = model.borderColor.cgColor
+    deinit {
+//        print("Deinit containerView \(self)")
     }
+
+    // MARK: Overridden Functions
+
+    override open func touchesEnded(_ touches: Set<UITouch>, with event: UIEvent?) {
+        super.touchesEnded(touches, with: event)
+
+        if let content = _content as? HUDTappableViewInterface, content.isTappable() {
+            onTapContainer?()
+        }
+    }
+
+    // MARK: Functions
 
     public func setContent(content: HUDContentViewInterface, preferredSize: CGSize, maxSize: CGSize, exact: Bool) {
         guard let newContent = content as? UIView else {
@@ -160,7 +168,7 @@ open class HUDContainerView: CustomIntensityVisualEffectView, HUDContainerInterf
                 self.transform = CGAffineTransform.identity
             }
 
-        case .sizeAppear(let style):
+        case let .sizeAppear(style):
             alpha = 1
             switch style {
             case .horizontal: transform = CGAffineTransform(scaleX: 0, y: model.startAdjustSize)
@@ -171,11 +179,17 @@ open class HUDContainerView: CustomIntensityVisualEffectView, HUDContainerInterf
         }
         isHidden = false
         if animated {
-            UIView.animate(withDuration: model.inAnimationDuration, delay: 0, options: model.animationCurve, animations: {
-                animateBlock()
-            }, completion: { _ in
-                completion?()
-            })
+            UIView.animate(
+                withDuration: model.inAnimationDuration,
+                delay: 0,
+                options: model.animationCurve,
+                animations: {
+                    animateBlock()
+                },
+                completion: { _ in
+                    completion?()
+                }
+            )
         } else {
             animateBlock()
             completion?()
@@ -201,7 +215,7 @@ open class HUDContainerView: CustomIntensityVisualEffectView, HUDContainerInterf
                 self.transform = CGAffineTransform(scaleX: self.model.finishAdjustSize, y: self.model.finishAdjustSize)
             }
 
-        case .sizeAppear(let style):
+        case let .sizeAppear(style):
             let viewTransform =
                 switch style {
                 case .horizontal: CGAffineTransform(scaleX: .ulpOfOne, y: model.finishAdjustSize)
@@ -214,13 +228,19 @@ open class HUDContainerView: CustomIntensityVisualEffectView, HUDContainerInterf
             }
         }
         if animated {
-            UIView.animate(withDuration: model.outAnimationDuration, delay: 0, options: model.animationCurve, animations: {
-                animateBlock()
-            }, completion: { [weak self] _ in
-                self?.transform = CGAffineTransform.identity
-                self?.isHidden = true
-                completion?()
-            })
+            UIView.animate(
+                withDuration: model.outAnimationDuration,
+                delay: 0,
+                options: model.animationCurve,
+                animations: {
+                    animateBlock()
+                },
+                completion: { [weak self] _ in
+                    self?.transform = CGAffineTransform.identity
+                    self?.isHidden = true
+                    completion?()
+                }
+            )
         } else {
             animateBlock()
             isHidden = true
@@ -228,15 +248,14 @@ open class HUDContainerView: CustomIntensityVisualEffectView, HUDContainerInterf
         }
     }
 
-    override open func touchesEnded(_ touches: Set<UITouch>, with event: UIEvent?) {
-        super.touchesEnded(touches, with: event)
+    private func setup() {
+        translatesAutoresizingMaskIntoConstraints = false
 
-        if let content = _content as? HUDTappableViewInterface, content.isTappable() {
-            onTapContainer?()
-        }
-    }
+        backgroundColor = model.backgroundColor
+        layer.cornerRadius = model.cornerRadius
+        clipsToBounds = true
 
-    deinit {
-//        print("Deinit containerView \(self)")
+        layer.borderWidth = model.borderWidth
+        layer.borderColor = model.borderColor.cgColor
     }
 }

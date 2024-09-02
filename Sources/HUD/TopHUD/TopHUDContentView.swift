@@ -1,8 +1,7 @@
 //
 //  TopHUDContentView.swift
-//  HUD
 //
-//  Created by Sun on 2024/8/19.
+//  Created by Sun on 2022/10/6.
 //
 
 import UIKit
@@ -14,13 +13,17 @@ import UIExtensions
 // MARK: - TopHUDContentView
 
 class TopHUDContentView: UIView {
-    
+    // MARK: Properties
+
+    public var actions: [HUDTimeAction] = []
+
     private let loadingView = HUDProgressView(progress: nil, strokeLineWidth: 2, radius: 16, strokeColor: .zx002)
     private let imageView = UIImageView()
     private let titleLabel = UILabel()
 
     private var loading = false
-    public var actions: [HUDTimeAction] = []
+
+    // MARK: Lifecycle
 
     init() {
         super.init(frame: .zero)
@@ -58,7 +61,6 @@ class TopHUDContentView: UIView {
 }
 
 extension TopHUDContentView {
-
     var title: String? {
         get { titleLabel.text }
         set { titleLabel.text = newValue }
@@ -90,7 +92,6 @@ extension TopHUDContentView {
             }
         }
     }
-
 }
 
 // MARK: HUDContentViewInterface, HUDTappableViewInterface

@@ -1,8 +1,7 @@
 //
 //  HUDModel.swift
-//  HUD
 //
-//  Created by Sun on 2024/8/19.
+//  Created by Sun on 2021/11/30.
 //
 
 import UIKit
@@ -112,6 +111,8 @@ public protocol HUDViewModel {
 // MARK: - HUDConfig
 
 public struct HUDConfig: HUDViewModel, HUDCoverModel, HUDContainerModel {
+    // MARK: Properties
+
     public var style: HUDStyle = .banner(.top)
 
     public var appearStyle: HUDAppearStyle = .alphaAppear
@@ -150,6 +151,7 @@ public struct HUDConfig: HUDViewModel, HUDCoverModel, HUDContainerModel {
 
     public var hapticType: HapticNotificationType? = .error
 
-    public init() { }
+    // MARK: Lifecycle
 
+    public init() { }
 }

@@ -2,13 +2,19 @@
 
 Customizable HUD.
 
+## Requirements
+
+* Xcode 15.4+
+* Swift 5.10+
+* iOS 14.0+
+
 ## Installation
 
 ### Swift Package Manager
 
 ```swift
 dependencies: [
-    .package(url: "https://github.com/sunimp/HUD.Swift.git", .upToNextMajor(from: "2.1.1"))
+    .package(url: "https://github.com/sunimp/HUD.Swift.git", .upToNextMajor(from: "2.2.0"))
 ]
 ```
 

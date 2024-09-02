@@ -1,8 +1,7 @@
 //
 //  HUDActivityView.swift
-//  HUD
 //
-//  Created by Sun on 2024/8/19.
+//  Created by Sun on 2021/11/30.
 //
 
 import UIKit
@@ -10,28 +9,11 @@ import UIKit
 import SnapKit
 
 public class HUDActivityView: UIView, HUDAnimatedViewInterface, HUDTappableViewInterface, HUDContentViewInterface {
+    // MARK: Static Properties
+
     private static let rotateKey = "rotate"
 
-    private var _indefiniteAnimatedLayer: CAShapeLayer?
-    private var pausedAnimating = false
-
-    private var dashHeight: CGFloat
-    private var dashStrokeWidth: CGFloat
-    private var strokeColor: UIColor
-    private var donutColor: UIColor?
-    private var radius: CGFloat
-    private var duration: TimeInterval
-
-    public var centerPoint: CGFloat { radius }
-    public var isAnimating = false
-
-    public var actions: [HUDTimeAction] = []
-
-    public var edgeInsets = UIEdgeInsets.zero {
-        didSet {
-            layoutAnimatedLayer()
-        }
-    }
+    // MARK: Overridden Properties
 
     override open var frame: CGRect {
         didSet {
@@ -46,6 +28,31 @@ public class HUDActivityView: UIView, HUDAnimatedViewInterface, HUDTappableViewI
             if !bounds.equalTo(oldValue) {
                 layoutAnimatedLayer()
             }
+        }
+    }
+
+    // MARK: Properties
+
+    public var isAnimating = false
+
+    public var actions: [HUDTimeAction] = []
+
+    private var _indefiniteAnimatedLayer: CAShapeLayer?
+    private var pausedAnimating = false
+
+    private var dashHeight: CGFloat
+    private var dashStrokeWidth: CGFloat
+    private var strokeColor: UIColor
+    private var donutColor: UIColor?
+    private var radius: CGFloat
+    private var duration: TimeInterval
+
+    // MARK: Computed Properties
+
+    public var centerPoint: CGFloat { radius }
+    public var edgeInsets = UIEdgeInsets.zero {
+        didSet {
+            layoutAnimatedLayer()
         }
     }
 
@@ -75,30 +82,7 @@ public class HUDActivityView: UIView, HUDAnimatedViewInterface, HUDTappableViewI
         return animatedLayer
     }
 
-    func addMaskLayer(animatedLayer: CAShapeLayer) {
-        let maskLayer = CALayer(layer: layer)
-
-        maskLayer.contents = UIImage(named: "angle-mask-blur", in: Bundle.module, compatibleWith: nil)?.cgImage
-        maskLayer.frame = animatedLayer.bounds
-        animatedLayer.mask = maskLayer
-    }
-
-    func dashesPath() -> UIBezierPath {
-        let path = UIBezierPath()
-        let startWidth = radius - dashHeight + dashStrokeWidth / 2
-        let endWidth = radius - dashStrokeWidth / 2
-        for i in 0 ..< 8 {
-            let angle = CGFloat(i) * 2 * CGFloat.pi / 8
-
-            path.move(to: CGPoint(x: centerPoint + startWidth * cos(angle), y: centerPoint - startWidth * sin(angle)))
-            path.addLine(to: CGPoint(x: centerPoint + endWidth * cos(angle), y: centerPoint - endWidth * sin(angle)))
-        }
-        return path
-    }
-
-    override open func sizeThatFits(_: CGSize) -> CGSize {
-        CGSize(width: centerPoint * 2, height: centerPoint * 2)
-    }
+    // MARK: Lifecycle
 
     public init(
         dashHeight: CGFloat,
@@ -126,6 +110,29 @@ public class HUDActivityView: UIView, HUDAnimatedViewInterface, HUDTappableViewI
     public required init?(coder _: NSCoder) {
         fatalError("init(coder:) has not been implemented")
     }
+
+    deinit {
+//        print("Deinit progress view \(self)")
+    }
+
+    // MARK: Overridden Functions
+
+    override open func sizeThatFits(_: CGSize) -> CGSize {
+        CGSize(width: centerPoint * 2, height: centerPoint * 2)
+    }
+
+    override open func willMove(toSuperview newSuperview: UIView?) {
+        super.willMove(toSuperview: newSuperview)
+
+        if newSuperview == nil {
+            _indefiniteAnimatedLayer?.removeFromSuperlayer()
+            _indefiniteAnimatedLayer = nil
+        } else {
+            layoutAnimatedLayer(forced: true)
+        }
+    }
+
+    // MARK: Functions
 
     public func isTappable() -> Bool {
         false
@@ -226,19 +233,24 @@ public class HUDActivityView: UIView, HUDAnimatedViewInterface, HUDTappableViewI
         }
     }
 
-    override open func willMove(toSuperview newSuperview: UIView?) {
-        super.willMove(toSuperview: newSuperview)
+    func addMaskLayer(animatedLayer: CAShapeLayer) {
+        let maskLayer = CALayer(layer: layer)
 
-        if newSuperview == nil {
-            _indefiniteAnimatedLayer?.removeFromSuperlayer()
-            _indefiniteAnimatedLayer = nil
-        } else {
-            layoutAnimatedLayer(forced: true)
+        maskLayer.contents = UIImage(named: "angle-mask-blur", in: Bundle.module, compatibleWith: nil)?.cgImage
+        maskLayer.frame = animatedLayer.bounds
+        animatedLayer.mask = maskLayer
+    }
+
+    func dashesPath() -> UIBezierPath {
+        let path = UIBezierPath()
+        let startWidth = radius - dashHeight + dashStrokeWidth / 2
+        let endWidth = radius - dashStrokeWidth / 2
+        for i in 0 ..< 8 {
+            let angle = CGFloat(i) * 2 * CGFloat.pi / 8
+
+            path.move(to: CGPoint(x: centerPoint + startWidth * cos(angle), y: centerPoint - startWidth * sin(angle)))
+            path.addLine(to: CGPoint(x: centerPoint + endWidth * cos(angle), y: centerPoint - endWidth * sin(angle)))
         }
+        return path
     }
-
-    deinit {
-//        print("Deinit progress view \(self)")
-    }
-
 }

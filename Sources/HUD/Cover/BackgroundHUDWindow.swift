@@ -1,15 +1,17 @@
 //
 //  BackgroundHUDWindow.swift
-//  HUD
 //
-//  Created by Sun on 2024/8/19.
+//  Created by Sun on 2022/10/6.
 //
 
 import UIKit
 
 class BackgroundHUDWindow: HUDWindow {
-    
+    // MARK: Properties
+
     private(set) var coverView: CoverViewInterface
+
+    // MARK: Lifecycle
 
     init(
         windowScene: UIWindowScene,
@@ -31,6 +33,8 @@ class BackgroundHUDWindow: HUDWindow {
     required init?(coder _: NSCoder) {
         fatalError("init(coder:) has not been implemented")
     }
+
+    // MARK: Functions
 
     func set(transparent: Bool) {
         self.transparent = transparent

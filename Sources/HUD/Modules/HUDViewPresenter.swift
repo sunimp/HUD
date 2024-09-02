@@ -1,13 +1,16 @@
 //
 //  HUDViewPresenter.swift
-//  HUD
 //
-//  Created by Sun on 2024/8/19.
+//  Created by Sun on 2021/11/30.
 //
 
 import Foundation
 
 class HUDViewPresenter: HUDViewPresenterInterface, HUDViewInteractorDelegate, CoverViewDelegate {
+    // MARK: Properties
+
+    public let config: HUDConfig
+
     let interactor: HUDViewInteractorInterface
     let router: HUDViewRouterInterface
     var feedbackGenerator: HUDFeedbackGenerator?
@@ -16,9 +19,10 @@ class HUDViewPresenter: HUDViewPresenterInterface, HUDViewInteractorDelegate, Co
 
     var coverView: CoverViewInterface
     var containerView: HUDContainerInterface
-    public let config: HUDConfig
 
     private var timers = [Timer]()
+
+    // MARK: Lifecycle
 
     init(
         interactor: HUDViewInteractorInterface,
@@ -36,6 +40,12 @@ class HUDViewPresenter: HUDViewPresenterInterface, HUDViewInteractorDelegate, Co
         self.coverView.delegate = self
     }
 
+    deinit {
+//        print("Deinit HUDView presenter \(self)")
+    }
+
+    // MARK: Functions
+
     func viewDidLoad() { }
 
     func updateCover() {
@@ -48,7 +58,7 @@ class HUDViewPresenter: HUDViewPresenterInterface, HUDViewInteractorDelegate, Co
 
     func showContainerView(animated: Bool = true, completion: (() -> Void)? = nil) {
         var style: HUDBannerStyle?
-        if case .banner(let bannerStyle) = config.style {
+        if case let .banner(bannerStyle) = config.style {
             style = bannerStyle
         }
         let correctedOffset = containerView.outScreenOffset(
@@ -57,7 +67,12 @@ class HUDViewPresenter: HUDViewPresenterInterface, HUDViewInteractorDelegate, Co
                 : view?.safeCorrectedOffset(for: config.hudInset, style: style, relativeWindow: true) ?? .zero,
             style: style
         )
-        containerView.show(animated: true, appearStyle: config.appearStyle, offset: correctedOffset, completion: completion)
+        containerView.show(
+            animated: true,
+            appearStyle: config.appearStyle,
+            offset: correctedOffset,
+            completion: completion
+        )
     }
 
     func show(animated: Bool = true, completion: (() -> Void)? = nil) {
@@ -72,7 +87,7 @@ class HUDViewPresenter: HUDViewPresenterInterface, HUDViewInteractorDelegate, Co
         removeAllTimers()
 
         var style: HUDBannerStyle?
-        if case .banner(let bannerStyle) = config.style {
+        if case let .banner(bannerStyle) = config.style {
             style = bannerStyle
         }
         let correctedOffset = containerView.outScreenOffset(
@@ -129,9 +144,4 @@ class HUDViewPresenter: HUDViewPresenterInterface, HUDViewInteractorDelegate, Co
     // CoverView delegate
 
     func didHide() { }
-
-    deinit {
-//        print("Deinit HUDView presenter \(self)")
-    }
-
 }

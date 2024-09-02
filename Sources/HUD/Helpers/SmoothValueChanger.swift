@@ -1,14 +1,14 @@
 //
 //  SmoothValueChanger.swift
-//  HUD
 //
-//  Created by Sun on 2024/8/19.
+//  Created by Sun on 2021/11/30.
 //
 
 import Foundation
 
 public class SmoothValueChanger {
-    
+    // MARK: Properties
+
     var currentValue: Float
 
     let fullChangeTime: TimeInterval
@@ -18,6 +18,8 @@ public class SmoothValueChanger {
     var onFinishChanging: ((Float) -> Void)?
 
     private var timer: Timer?
+
+    // MARK: Lifecycle
 
     public init(
         initialValue: Float,
@@ -32,6 +34,8 @@ public class SmoothValueChanger {
         self.onChangeValue = onChangeValue
         self.onFinishChanging = onFinishChanging
     }
+
+    // MARK: Functions
 
     public func set(value: Float) {
         timer?.invalidate()

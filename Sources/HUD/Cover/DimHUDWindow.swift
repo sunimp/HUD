@@ -1,8 +1,7 @@
 //
 //  DimHUDWindow.swift
-//  HUD
 //
-//  Created by Sun on 2024/8/19.
+//  Created by Sun on 2022/10/6.
 //
 
 import UIKit
@@ -10,8 +9,11 @@ import UIKit
 // MARK: - DimHUDWindow
 
 class DimHUDWindow: BackgroundHUDWindow {
-    
+    // MARK: Properties
+
     private var dimViewController: DimViewController?
+
+    // MARK: Lifecycle
 
     init(
         windowScene: UIWindowScene,
@@ -37,14 +39,11 @@ class DimHUDWindow: BackgroundHUDWindow {
     required init?(coder _: NSCoder) {
         fatalError("init(coder:) has not been implemented")
     }
-
 }
 
 extension DimHUDWindow {
-
     var onTap: (() -> Void)? {
         get { dimViewController?.onTap }
         set { dimViewController?.onTap = newValue }
     }
-
 }

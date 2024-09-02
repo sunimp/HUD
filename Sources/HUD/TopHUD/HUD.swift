@@ -1,8 +1,7 @@
 //
 //  HUD.swift
-//  HUD
 //
-//  Created by Sun on 2024/8/19.
+//  Created by Sun on 2022/10/6.
 //
 
 import UIKit
@@ -22,21 +21,28 @@ public protocol IHudMode {
 // MARK: - HUD
 
 public class HUD {
-    
+    // MARK: Static Properties
+
     public static let shared = HUD()
-    
-    let keyboardNotificationHandler: HUDKeyboardHelper
-    
+
+    // MARK: Properties
+
     public var config: HUDConfig
-    var view: HUDView?
     
     public var animated = true
-    
+
+    let keyboardNotificationHandler: HUDKeyboardHelper
+    var view: HUDView?
+
+    // MARK: Lifecycle
+
     init(config: HUDConfig? = nil, keyboardNotifications: HUDKeyboardHelper = .shared) {
         self.config = config ?? HUDConfig()
         keyboardNotificationHandler = keyboardNotifications
     }
-    
+
+    // MARK: Functions
+
     public func show(error: String?) {
         HUDStatusFactory.shared.config.dismissTimeInterval = 2
         let content = HUDStatusFactory.shared.view(type: .error, title: error)
@@ -115,20 +121,19 @@ public class HUD {
         view?.showCompletion = showCompletion
         view?.dismissCompletion = dismissCompletion
     }
-    
 }
 
 // MARK: HUDViewRouterInterface
 
 extension HUD: HUDViewRouterInterface {
-    
     class func create(
         config: HUDConfig,
         router: HUDViewRouterInterface,
         backgroundWindow: BackgroundHUDWindow,
         containerView: HUDContainerView,
         statusBarStyle: UIStatusBarStyle? = nil
-    ) -> HUDView {
+    )
+        -> HUDView {
         let interactor: HUDViewInteractorInterface = HUDViewInteractor()
         let presenter: HUDViewPresenterInterface & HUDViewInteractorDelegate = HUDViewPresenter(
             interactor: interactor,
@@ -160,7 +165,12 @@ extension HUD: HUDViewRouterInterface {
         return view
     }
     
-    public func show(config: HUDConfig, viewItem: ViewItem, statusBarStyle: UIStatusBarStyle? = nil, forced: Bool = false) {
+    public func show(
+        config: HUDConfig,
+        viewItem: ViewItem,
+        statusBarStyle: UIStatusBarStyle? = nil,
+        forced: Bool = false
+    ) {
         self.config = config
         let showBlock = { [weak self] in
             let contentView = TopHUDContentView()
@@ -199,21 +209,22 @@ extension HUD: HUDViewRouterInterface {
             self?.view = nil
         })
     }
-    
 }
 
 // MARK: HUD.ViewItem
 
 extension HUD {
-    
     public struct ViewItem {
-        
+        // MARK: Properties
+
         let icon: UIImage?
         let iconColor: UIColor
         let title: String?
         let showingTime: TimeInterval?
         let isLoading: Bool
-        
+
+        // MARK: Lifecycle
+
         public init(
             icon: UIImage?,
             iconColor: UIColor,
@@ -228,5 +239,4 @@ extension HUD {
             self.isLoading = isLoading
         }
     }
-    
 }

@@ -1,15 +1,13 @@
 //
 //  DimCoverView.swift
-//  HUD
 //
-//  Created by Sun on 2024/8/19.
+//  Created by Sun on 2021/11/30.
 //
 
 import UIKit
 
 open class DimCoverView: HUDCoverView {
-    
-    private let model: HUDCoverModel
+    // MARK: Overridden Properties
 
     override public var isVisible: Bool {
         !isHidden
@@ -24,7 +22,13 @@ open class DimCoverView: HUDCoverView {
         }
     }
 
+    // MARK: Properties
+
+    private let model: HUDCoverModel
+
     private let dimBackgroundView: UIView
+
+    // MARK: Lifecycle
 
     public init(withModel model: HUDCoverModel, backgroundView: UIView? = nil) {
         self.model = model
@@ -39,13 +43,22 @@ open class DimCoverView: HUDCoverView {
         fatalError("init(coder:) has not been implemented")
     }
 
-    func commonInit() {
-        isHidden = true
+    deinit {
+//        print("Deinit coverView \(self)")
+    }
 
-        dimBackgroundView.backgroundColor = model.coverBackgroundColor
-        dimBackgroundView.alpha = 0
+    // MARK: Overridden Functions
 
-        addSubview(dimBackgroundView)
+    override open func touchesEnded(_ touches: Set<UITouch>, with event: UIEvent?) {
+        onTapCover?()
+
+        super.touchesEnded(touches, with: event)
+    }
+
+    override open func layoutSubviews() {
+        super.layoutSubviews()
+
+        dimBackgroundView.frame = bounds
     }
 
     override public func show(animated: Bool) {
@@ -95,20 +108,14 @@ open class DimCoverView: HUDCoverView {
         }
     }
 
-    override open func touchesEnded(_ touches: Set<UITouch>, with event: UIEvent?) {
-        onTapCover?()
+    // MARK: Functions
 
-        super.touchesEnded(touches, with: event)
+    func commonInit() {
+        isHidden = true
+
+        dimBackgroundView.backgroundColor = model.coverBackgroundColor
+        dimBackgroundView.alpha = 0
+
+        addSubview(dimBackgroundView)
     }
-
-    override open func layoutSubviews() {
-        super.layoutSubviews()
-
-        dimBackgroundView.frame = bounds
-    }
-
-    deinit {
-//        print("Deinit coverView \(self)")
-    }
-
 }

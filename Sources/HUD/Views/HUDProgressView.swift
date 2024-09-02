@@ -1,8 +1,7 @@
 //
 //  HUDProgressView.swift
-//  HUD
 //
-//  Created by Sun on 2024/8/19.
+//  Created by Sun on 2021/11/30.
 //
 
 import UIKit
@@ -10,26 +9,11 @@ import UIKit
 import SnapKit
 
 public class HUDProgressView: UIView, HUDAnimatedViewInterface, HUDTappableViewInterface {
+    // MARK: Static Properties
+
     private static let rotateKey = "rotate"
 
-    private var centerImageView: UIImageView?
-
-    private var _baseLayer: CAShapeLayer?
-    private var _indefiniteAnimatedLayer: CAShapeLayer?
-    private var pausedAnimating = false
-
-    private var strokeLineWidth: CGFloat
-    private var strokeColor: UIColor
-    private var donutColor: UIColor?
-    private var radius: CGFloat
-    private var progress: Float?
-    private var duration: TimeInterval
-
-    public var centerPoint: CGFloat { radius + strokeLineWidth / 2 }
-    public var clockwise = true
-    public var isAnimating = false
-
-    private var valueChanger: SmoothValueChanger?
+    // MARK: Overridden Properties
 
     override open var frame: CGRect {
         didSet {
@@ -46,6 +30,30 @@ public class HUDProgressView: UIView, HUDAnimatedViewInterface, HUDTappableViewI
             }
         }
     }
+
+    // MARK: Properties
+
+    public var clockwise = true
+    public var isAnimating = false
+
+    private var centerImageView: UIImageView?
+
+    private var _baseLayer: CAShapeLayer?
+    private var _indefiniteAnimatedLayer: CAShapeLayer?
+    private var pausedAnimating = false
+
+    private var strokeLineWidth: CGFloat
+    private var strokeColor: UIColor
+    private var donutColor: UIColor?
+    private var radius: CGFloat
+    private var progress: Float?
+    private var duration: TimeInterval
+
+    private var valueChanger: SmoothValueChanger?
+
+    // MARK: Computed Properties
+
+    public var centerPoint: CGFloat { radius + strokeLineWidth / 2 }
 
     var indefiniteAnimatedLayer: CAShapeLayer {
         if let layer = _indefiniteAnimatedLayer {
@@ -90,28 +98,7 @@ public class HUDProgressView: UIView, HUDAnimatedViewInterface, HUDTappableViewI
         return animatedLayer
     }
 
-    func addMaskLayer(animatedLayer: CAShapeLayer) {
-        let maskLayer = CALayer(layer: layer)
-
-        maskLayer.contents = UIImage(named: "angle-mask", in: Bundle.module, compatibleWith: nil)?.cgImage
-        maskLayer.frame = animatedLayer.bounds
-        animatedLayer.mask = maskLayer
-    }
-
-    func smootherPath(startAngle: CGFloat, endAngle: CGFloat) -> UIBezierPath {
-        let arcCenter = CGPoint(x: centerPoint, y: centerPoint)
-        return UIBezierPath(
-            arcCenter: arcCenter,
-            radius: radius,
-            startAngle: startAngle,
-            endAngle: endAngle,
-            clockwise: clockwise
-        )
-    }
-
-    override open func sizeThatFits(_: CGSize) -> CGSize {
-        CGSize(width: centerPoint * 2, height: centerPoint * 2)
-    }
+    // MARK: Lifecycle
 
     public init(
         progress: Float? = nil,
@@ -137,12 +124,28 @@ public class HUDProgressView: UIView, HUDAnimatedViewInterface, HUDTappableViewI
         fatalError("init(coder:) has not been implemented")
     }
 
-    func commonInit() {
-        backgroundColor = .clear
-        clipsToBounds = true
-
-        sizeToFit()
+    deinit {
+//        print("Deinit progress view \(self)")
     }
+
+    // MARK: Overridden Functions
+
+    override open func sizeThatFits(_: CGSize) -> CGSize {
+        CGSize(width: centerPoint * 2, height: centerPoint * 2)
+    }
+
+    override open func willMove(toSuperview newSuperview: UIView?) {
+        super.willMove(toSuperview: newSuperview)
+
+        if newSuperview == nil {
+            _indefiniteAnimatedLayer?.removeFromSuperlayer()
+            _indefiniteAnimatedLayer = nil
+        } else {
+            layoutAnimatedLayer(forced: true)
+        }
+    }
+
+    // MARK: Functions
 
     public func appendInCenter(image: UIImage?) {
         guard centerImageView == nil else {
@@ -306,19 +309,29 @@ public class HUDProgressView: UIView, HUDAnimatedViewInterface, HUDTappableViewI
         }
     }
 
-    override open func willMove(toSuperview newSuperview: UIView?) {
-        super.willMove(toSuperview: newSuperview)
+    func addMaskLayer(animatedLayer: CAShapeLayer) {
+        let maskLayer = CALayer(layer: layer)
 
-        if newSuperview == nil {
-            _indefiniteAnimatedLayer?.removeFromSuperlayer()
-            _indefiniteAnimatedLayer = nil
-        } else {
-            layoutAnimatedLayer(forced: true)
-        }
+        maskLayer.contents = UIImage(named: "angle-mask", in: Bundle.module, compatibleWith: nil)?.cgImage
+        maskLayer.frame = animatedLayer.bounds
+        animatedLayer.mask = maskLayer
     }
 
-    deinit {
-//        print("Deinit progress view \(self)")
+    func smootherPath(startAngle: CGFloat, endAngle: CGFloat) -> UIBezierPath {
+        let arcCenter = CGPoint(x: centerPoint, y: centerPoint)
+        return UIBezierPath(
+            arcCenter: arcCenter,
+            radius: radius,
+            startAngle: startAngle,
+            endAngle: endAngle,
+            clockwise: clockwise
+        )
     }
 
+    func commonInit() {
+        backgroundColor = .clear
+        clipsToBounds = true
+
+        sizeToFit()
+    }
 }

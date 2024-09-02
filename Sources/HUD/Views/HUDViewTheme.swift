@@ -1,8 +1,7 @@
 //
-//  HUDStatusViewTheme.swift
-//  HUD
+//  HUDViewTheme.swift
 //
-//  Created by Sun on 2024/8/19.
+//  Created by Sun on 2021/11/30.
 //
 
 import UIKit
@@ -22,5 +21,3 @@ class HUDStatusViewTheme {
 class HUDProgressViewTheme {
     static let insets = UIEdgeInsets(top: 16, left: 16, bottom: 16, right: 16)
 }
-
-

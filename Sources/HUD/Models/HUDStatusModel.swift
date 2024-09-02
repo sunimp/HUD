@@ -1,8 +1,7 @@
 //
 //  HUDStatusModel.swift
-//  HUD
 //
-//  Created by Sun on 2024/8/19.
+//  Created by Sun on 2021/11/30.
 //
 
 import UIKit
@@ -20,6 +19,8 @@ public protocol HUDStatusViewConfig {
 // MARK: - HUDStatusModel
 
 public class HUDStatusModel: HUDStatusViewConfig {
+    // MARK: Properties
+
     public var successImage: UIImage?
     public var infoImage: UIImage?
     public var errorImage: UIImage?
@@ -59,11 +60,12 @@ public class HUDStatusModel: HUDStatusViewConfig {
     public var imageBottomPadding: CGFloat = HUDStatusViewTheme.imageBottomPadding
     public var titleBottomPadding: CGFloat = HUDStatusViewTheme.titleBottomPadding
 
+    // MARK: Lifecycle
+
     init() {
         successImage = UIImage(named: "success", in: Bundle.module, compatibleWith: nil)
         infoImage = UIImage(named: "info", in: Bundle.module, compatibleWith: nil)
         errorImage = UIImage(named: "error", in: Bundle.module, compatibleWith: nil)
         cancelImage = UIImage(named: "error", in: Bundle.module, compatibleWith: nil)
     }
-
 }

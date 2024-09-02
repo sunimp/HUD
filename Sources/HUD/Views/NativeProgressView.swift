@@ -1,8 +1,7 @@
 //
 //  NativeProgressView.swift
-//  HUD
 //
-//  Created by Sun on 2024/8/19.
+//  Created by Sun on 2021/11/30.
 //
 
 import UIKit
@@ -10,6 +9,7 @@ import UIKit
 import SnapKit
 
 class NativeProgressView: UIActivityIndicatorView, HUDAnimatedViewInterface {
+    // MARK: Lifecycle
 
     init(activityIndicatorStyle: UIActivityIndicatorView.Style, color: UIColor? = nil) {
         super.init(frame: .zero)
@@ -20,9 +20,20 @@ class NativeProgressView: UIActivityIndicatorView, HUDAnimatedViewInterface {
         commonInit()
     }
 
+    @available(*, unavailable)
     required init(coder _: NSCoder) {
         fatalError("Can't use decoder")
     }
+
+    // MARK: Overridden Functions
+
+    override func touchesEnded(_ touches: Set<UITouch>, with event: UIEvent?) {
+        super.touchesEnded(touches, with: event)
+
+//        print("touch end")
+    }
+
+    // MARK: Functions
 
     func commonInit() {
         sizeToFit()
@@ -35,11 +46,4 @@ class NativeProgressView: UIActivityIndicatorView, HUDAnimatedViewInterface {
     func set(progress _: Float) {
         // can't set progress for native activity indicator
     }
-
-    override func touchesEnded(_ touches: Set<UITouch>, with event: UIEvent?) {
-        super.touchesEnded(touches, with: event)
-
-//        print("touch end")
-    }
-
 }

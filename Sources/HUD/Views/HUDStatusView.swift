@@ -1,8 +1,7 @@
 //
 //  HUDStatusView.swift
-//  HUD
 //
-//  Created by Sun on 2024/8/19.
+//  Created by Sun on 2021/11/30.
 //
 
 import UIKit
@@ -10,19 +9,30 @@ import UIKit
 import SnapKit
 
 public class HUDStatusView: UIView, HUDContentViewInterface, HUDTappableViewInterface {
+    // MARK: Properties
+
+    public var actions: [HUDTimeAction] = []
 
     private var imageView: UIView?
     private var titleLabel: UILabel?
     private var subtitleLabel: UILabel?
     private var config: HUDStatusViewConfig
 
+    // MARK: Computed Properties
+
     public var progressView: HUDAnimatedViewInterface? {
         imageView as? HUDAnimatedViewInterface
     }
 
-    public var actions: [HUDTimeAction] = []
+    // MARK: Lifecycle
 
-    public init(frame: CGRect, imageView: UIView?, titleLabel: UILabel?, subtitleLabel: UILabel?, config: HUDStatusViewConfig) {
+    public init(
+        frame: CGRect,
+        imageView: UIView?,
+        titleLabel: UILabel?,
+        subtitleLabel: UILabel?,
+        config: HUDStatusViewConfig
+    ) {
         self.imageView = imageView
         self.titleLabel = titleLabel
         self.subtitleLabel = subtitleLabel
@@ -36,6 +46,19 @@ public class HUDStatusView: UIView, HUDContentViewInterface, HUDTappableViewInte
     @available(*, unavailable)
     public required init?(coder _: NSCoder) {
         fatalError("init(coder:) has not been implemented")
+    }
+
+    deinit {
+//        print("Deinit content \(self)")
+    }
+
+    // MARK: Functions
+
+    public func isTappable() -> Bool {
+        if let imageView = imageView as? HUDTappableViewInterface {
+            return imageView.isTappable()
+        }
+        return true
     }
 
     private func commonInit() {
@@ -87,16 +110,4 @@ public class HUDStatusView: UIView, HUDContentViewInterface, HUDTappableViewInte
         }
         layoutIfNeeded()
     }
-
-    public func isTappable() -> Bool {
-        if let imageView = imageView as? HUDTappableViewInterface {
-            return imageView.isTappable()
-        }
-        return true
-    }
-
-    deinit {
-//        print("Deinit content \(self)")
-    }
-
 }

@@ -1,8 +1,7 @@
 //
 //  HUDStatusFactory.swift
-//  HUD
 //
-//  Created by Sun on 2024/8/19.
+//  Created by Sun on 2021/11/30.
 //
 
 import UIKit
@@ -27,18 +26,26 @@ public enum HUDStatusType {
 // MARK: - HUDStatusFactory
 
 public class HUDStatusFactory {
-    
+    // MARK: Static Properties
+
     public static let shared = HUDStatusFactory()
+
+    // MARK: Properties
 
     public var config = HUDStatusModel()
 
+    // MARK: Lifecycle
+
     init() { }
+
+    // MARK: Functions
 
     public func view(
         type: HUDStatusType,
         title: String? = nil,
         subtitle: String? = nil
-    ) -> HUDStatusView {
+    )
+        -> HUDStatusView {
         var image: UIImage?
         let imageView: UIView
         var imageViewActions = [HUDTimeAction]()
@@ -48,8 +55,8 @@ public class HUDStatusFactory {
         case .info: image = config.infoImage
         case .error: image = config.errorImage
         case .success: image = config.successImage
-        case .progress(let type): progressType = type
-        case .custom(let customImage): image = customImage
+        case let .progress(type): progressType = type
+        case let .custom(customImage): image = customImage
         }
         if let progressType {
             let animatedImageView: UIView & HUDAnimatedViewInterface
@@ -129,5 +136,4 @@ public class HUDStatusFactory {
         }
         return hudStatusView
     }
-
 }

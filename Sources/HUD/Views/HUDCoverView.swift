@@ -1,8 +1,7 @@
 //
 //  HUDCoverView.swift
-//  HUD
 //
-//  Created by Sun on 2024/8/19.
+//  Created by Sun on 2021/11/30.
 //
 
 import UIKit
@@ -10,12 +9,19 @@ import UIKit
 // MARK: - HUDCoverView
 
 open class HUDCoverView: UIView, CoverViewInterface {
+    // MARK: Properties
+
     public weak var delegate: CoverViewDelegate?
     public var transparent = false
     public var coverBackgroundColor: UIColor? = nil
 
     public var onTapCover: (() -> Void)? = nil
+
+    // MARK: Computed Properties
+
     public var isVisible: Bool { !isHidden }
+
+    // MARK: Functions
 
     public func show(animated _: Bool) { }
 
@@ -56,7 +62,6 @@ extension CoverViewInterface {
 // MARK: - CoverViewDelegate
 
 public protocol CoverViewDelegate: AnyObject {
-
     func willShow()
     func didShow()
 
