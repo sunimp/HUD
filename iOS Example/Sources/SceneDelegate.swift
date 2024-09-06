@@ -25,6 +25,7 @@ class SceneDelegate: UIResponder, UIWindowSceneDelegate {
         window = ThemeWindow(windowScene: windowScene)
         window?.makeKeyAndVisible()
         window?.backgroundColor = .zx009
-        window?.rootViewController = ViewController()
+        let vc = ViewController()
+        window?.rootViewController = ThemeNavigationController(rootViewController: vc)
     }
 }

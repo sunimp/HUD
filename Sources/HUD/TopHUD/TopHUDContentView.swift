@@ -17,6 +17,7 @@ class TopHUDContentView: UIView {
 
     public var actions: [HUDTimeAction] = []
 
+    private let stackView = UIStackView()
     private let loadingView = HUDProgressView(progress: nil, strokeLineWidth: 2, radius: 16, strokeColor: .zx002)
     private let imageView = UIImageView()
     private let titleLabel = UILabel()
@@ -27,27 +28,28 @@ class TopHUDContentView: UIView {
 
     init() {
         super.init(frame: .zero)
-
-        addSubview(loadingView)
-        loadingView.snp.makeConstraints { maker in
-            maker.top.bottom.equalToSuperview().inset(CGFloat.margin12 - 1)
+        
+        addSubview(stackView)
+        stackView.axis = .horizontal
+        stackView.spacing = CGFloat.margin12 - 1
+        stackView.alignment = .center
+        stackView.snp.makeConstraints { maker in
             maker.leading.equalToSuperview().inset(19)
+            maker.trailing.equalToSuperview().inset(32)
+            maker.top.bottom.equalToSuperview().inset(CGFloat.margin12 - 1)
+        }
+
+        stackView.addArrangedSubview(loadingView)
+        loadingView.snp.makeConstraints { maker in
             maker.size.equalTo(34)
         }
 
         loadingView.isHidden = true
 
-        addSubview(imageView)
-        imageView.snp.makeConstraints { maker in
-            maker.center.equalTo(loadingView)
-        }
-
-        addSubview(titleLabel)
-        titleLabel.snp.makeConstraints { maker in
-            maker.leading.equalTo(loadingView.snp.trailing).offset(CGFloat.margin12 - 1)
-            maker.centerY.equalTo(loadingView)
-            maker.trailing.equalToSuperview().inset(32)
-        }
+        imageView.setContentCompressionResistancePriority(.required, for: .horizontal)
+        imageView.setContentCompressionResistancePriority(.required, for: .vertical)
+        stackView.addArrangedSubview(imageView)
+        stackView.addArrangedSubview(titleLabel)
 
         titleLabel.font = .subhead1
         titleLabel.textColor = .zx002
@@ -64,6 +66,11 @@ extension TopHUDContentView {
     var title: String? {
         get { titleLabel.text }
         set { titleLabel.text = newValue }
+    }
+    
+    var numberOfLines: Int {
+        get { titleLabel.numberOfLines }
+        set { titleLabel.numberOfLines = newValue }
     }
 
     var icon: UIImage? {

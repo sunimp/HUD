@@ -14,7 +14,7 @@ Customizable HUD.
 
 ```swift
 dependencies: [
-    .package(url: "https://github.com/sunimp/HUD.Swift.git", .upToNextMajor(from: "2.2.0"))
+    .package(url: "https://github.com/sunimp/HUD.Swift.git", .upToNextMajor(from: "2.3.0"))
 ]
 ```
 

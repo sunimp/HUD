@@ -125,6 +125,7 @@ public struct HUDConfig: HUDViewModel, HUDCoverModel, HUDContainerModel {
         .allowedSizeInPercentOfScreen // maximum HUD size limitation in percent by screen size
     public var hudInset = CGPoint(x: 0, y: -8)
     public var absoluteInsetsValue = false
+    public var numberOfLines: Int = HUDTheme.numberOfLines
 
     public var coverInAnimationDuration: TimeInterval = HUDTheme.coverAppearDuration
     public var coverOutAnimationDuration: TimeInterval = HUDTheme.coverDisappearDuration

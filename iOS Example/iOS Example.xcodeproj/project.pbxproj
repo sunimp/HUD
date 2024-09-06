@@ -9,8 +9,9 @@
 /* Begin PBXBuildFile section */
 		3A39D0922755DBF40022CB8B /* ViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3A39D0902755DBF40022CB8B /* ViewController.swift */; };
 		3A39D0932755DBF40022CB8B /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3A39D0912755DBF40022CB8B /* AppDelegate.swift */; };
-		A419F1472C789BD000CFA4FA /* PresentController.swift in Sources */ = {isa = PBXBuildFile; fileRef = A419F1462C789BD000CFA4FA /* PresentController.swift */; };
 		A4962A3B2C7999B90081A8CD /* SceneDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = A4962A3A2C7999B90081A8CD /* SceneDelegate.swift */; };
+		A4B96F072C8AAB150044E6BC /* LookinServer in Frameworks */ = {isa = PBXBuildFile; productRef = A4B96F062C8AAB150044E6BC /* LookinServer */; };
+		A4B96F0E2C8ADD250044E6BC /* ComponentView.swift in Sources */ = {isa = PBXBuildFile; fileRef = A4B96F0D2C8ADD250044E6BC /* ComponentView.swift */; };
 		D94502FD261F98A500F6BF2E /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = D94502FC261F98A500F6BF2E /* Assets.xcassets */; };
 		D945030C261F99CC00F6BF2E /* HUD in Frameworks */ = {isa = PBXBuildFile; productRef = D945030B261F99CC00F6BF2E /* HUD */; };
 /* End PBXBuildFile section */
@@ -18,8 +19,8 @@
 /* Begin PBXFileReference section */
 		3A39D0902755DBF40022CB8B /* ViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ViewController.swift; sourceTree = "<group>"; };
 		3A39D0912755DBF40022CB8B /* AppDelegate.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
-		A419F1462C789BD000CFA4FA /* PresentController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PresentController.swift; sourceTree = "<group>"; };
 		A4962A3A2C7999B90081A8CD /* SceneDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SceneDelegate.swift; sourceTree = "<group>"; };
+		A4B96F0D2C8ADD250044E6BC /* ComponentView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ComponentView.swift; sourceTree = "<group>"; };
 		D94502F5261F98A400F6BF2E /* HUD Demo.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = "HUD Demo.app"; sourceTree = BUILT_PRODUCTS_DIR; };
 		D94502FC261F98A500F6BF2E /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		D9450301261F98A500F6BF2E /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
@@ -31,6 +32,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				D945030C261F99CC00F6BF2E /* HUD in Frameworks */,
+				A4B96F072C8AAB150044E6BC /* LookinServer in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -60,7 +62,7 @@
 				3A39D0912755DBF40022CB8B /* AppDelegate.swift */,
 				A4962A3A2C7999B90081A8CD /* SceneDelegate.swift */,
 				3A39D0902755DBF40022CB8B /* ViewController.swift */,
-				A419F1462C789BD000CFA4FA /* PresentController.swift */,
+				A4B96F0D2C8ADD250044E6BC /* ComponentView.swift */,
 				D94502FC261F98A500F6BF2E /* Assets.xcassets */,
 				D9450301261F98A500F6BF2E /* Info.plist */,
 			);
@@ -92,6 +94,7 @@
 			name = "iOS Example";
 			packageProductDependencies = (
 				D945030B261F99CC00F6BF2E /* HUD */,
+				A4B96F062C8AAB150044E6BC /* LookinServer */,
 			);
 			productName = "iOS Example";
 			productReference = D94502F5261F98A400F6BF2E /* HUD Demo.app */;
@@ -123,6 +126,7 @@
 			);
 			mainGroup = D94502EC261F98A400F6BF2E;
 			packageReferences = (
+				A4B96F052C8AAB150044E6BC /* XCRemoteSwiftPackageReference "LookinServer" */,
 			);
 			productRefGroup = D94502F6261F98A400F6BF2E /* Products */;
 			projectDirPath = "";
@@ -149,8 +153,8 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				A4B96F0E2C8ADD250044E6BC /* ComponentView.swift in Sources */,
 				3A39D0932755DBF40022CB8B /* AppDelegate.swift in Sources */,
-				A419F1472C789BD000CFA4FA /* PresentController.swift in Sources */,
 				3A39D0922755DBF40022CB8B /* ViewController.swift in Sources */,
 				A4962A3B2C7999B90081A8CD /* SceneDelegate.swift in Sources */,
 			);
@@ -351,7 +355,23 @@
 		};
 /* End XCConfigurationList section */
 
+/* Begin XCRemoteSwiftPackageReference section */
+		A4B96F052C8AAB150044E6BC /* XCRemoteSwiftPackageReference "LookinServer" */ = {
+			isa = XCRemoteSwiftPackageReference;
+			repositoryURL = "https://github.com/QMUI/LookinServer/";
+			requirement = {
+				kind = upToNextMajorVersion;
+				minimumVersion = 1.2.8;
+			};
+		};
+/* End XCRemoteSwiftPackageReference section */
+
 /* Begin XCSwiftPackageProductDependency section */
+		A4B96F062C8AAB150044E6BC /* LookinServer */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = A4B96F052C8AAB150044E6BC /* XCRemoteSwiftPackageReference "LookinServer" */;
+			productName = LookinServer;
+		};
 		D945030B261F99CC00F6BF2E /* HUD */ = {
 			isa = XCSwiftPackageProductDependency;
 			productName = HUD;

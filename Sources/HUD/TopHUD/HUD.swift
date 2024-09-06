@@ -175,6 +175,7 @@ extension HUD: HUDViewRouterInterface {
         let showBlock = { [weak self] in
             let contentView = TopHUDContentView()
             contentView.title = viewItem.title
+            contentView.numberOfLines = config.numberOfLines
             contentView.icon = viewItem.icon
             contentView.iconColor = viewItem.iconColor
             contentView.isLoading = viewItem.isLoading
