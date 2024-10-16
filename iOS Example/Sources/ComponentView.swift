@@ -1,6 +1,6 @@
 //
 //  ComponentView.swift
-//  iOS Example
+//  HUD-Example
 //
 //  Created by Sun on 2024/9/6.
 //

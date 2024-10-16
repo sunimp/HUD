@@ -1,5 +1,6 @@
 //
 //  HUDTheme.swift
+//  HUD
 //
 //  Created by Sun on 2021/11/30.
 //
@@ -12,7 +13,7 @@ class HUDTheme {
     static let exactSize = false
     static let preferredSize = CGSize(width: 114, height: 114)
     static let allowedSizeInPercentOfScreen = CGSize(width: 0.8, height: 0.8)
-    static let numberOfLines: Int = 1
+    static let numberOfLines = 1
 
     static let coverBackgroundColor = UIColor(white: 0, alpha: 0.3)
     static let coverAppearDuration: TimeInterval = 0.3

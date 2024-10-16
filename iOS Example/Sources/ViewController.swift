@@ -1,6 +1,6 @@
 //
 //  ViewController.swift
-//  iOS Example
+//  HUD-Example
 //
 //  Created by Sun on 2024/8/23.
 //

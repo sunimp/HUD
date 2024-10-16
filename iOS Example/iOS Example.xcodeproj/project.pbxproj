@@ -3,14 +3,14 @@
 	archiveVersion = 1;
 	classes = {
 	};
-	objectVersion = 54;
+	objectVersion = 60;
 	objects = {
 
 /* Begin PBXBuildFile section */
 		3A39D0922755DBF40022CB8B /* ViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3A39D0902755DBF40022CB8B /* ViewController.swift */; };
 		3A39D0932755DBF40022CB8B /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3A39D0912755DBF40022CB8B /* AppDelegate.swift */; };
+		A46AFF862CBFD7E7000086AC /* HUD in Frameworks */ = {isa = PBXBuildFile; productRef = A46AFF852CBFD7E7000086AC /* HUD */; };
 		A4962A3B2C7999B90081A8CD /* SceneDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = A4962A3A2C7999B90081A8CD /* SceneDelegate.swift */; };
-		A4B96F072C8AAB150044E6BC /* LookinServer in Frameworks */ = {isa = PBXBuildFile; productRef = A4B96F062C8AAB150044E6BC /* LookinServer */; };
 		A4B96F0E2C8ADD250044E6BC /* ComponentView.swift in Sources */ = {isa = PBXBuildFile; fileRef = A4B96F0D2C8ADD250044E6BC /* ComponentView.swift */; };
 		D94502FD261F98A500F6BF2E /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = D94502FC261F98A500F6BF2E /* Assets.xcassets */; };
 		D945030C261F99CC00F6BF2E /* HUD in Frameworks */ = {isa = PBXBuildFile; productRef = D945030B261F99CC00F6BF2E /* HUD */; };
@@ -21,7 +21,7 @@
 		3A39D0912755DBF40022CB8B /* AppDelegate.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		A4962A3A2C7999B90081A8CD /* SceneDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SceneDelegate.swift; sourceTree = "<group>"; };
 		A4B96F0D2C8ADD250044E6BC /* ComponentView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ComponentView.swift; sourceTree = "<group>"; };
-		D94502F5261F98A400F6BF2E /* HUD Demo.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = "HUD Demo.app"; sourceTree = BUILT_PRODUCTS_DIR; };
+		D94502F5261F98A400F6BF2E /* HUD-Example.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = "HUD-Example.app"; sourceTree = BUILT_PRODUCTS_DIR; };
 		D94502FC261F98A500F6BF2E /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		D9450301261F98A500F6BF2E /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 /* End PBXFileReference section */
@@ -31,8 +31,8 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				A46AFF862CBFD7E7000086AC /* HUD in Frameworks */,
 				D945030C261F99CC00F6BF2E /* HUD in Frameworks */,
-				A4B96F072C8AAB150044E6BC /* LookinServer in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -51,7 +51,7 @@
 		D94502F6261F98A400F6BF2E /* Products */ = {
 			isa = PBXGroup;
 			children = (
-				D94502F5261F98A400F6BF2E /* HUD Demo.app */,
+				D94502F5261F98A400F6BF2E /* HUD-Example.app */,
 			);
 			name = Products;
 			sourceTree = "<group>";
@@ -94,10 +94,10 @@
 			name = "iOS Example";
 			packageProductDependencies = (
 				D945030B261F99CC00F6BF2E /* HUD */,
-				A4B96F062C8AAB150044E6BC /* LookinServer */,
+				A46AFF852CBFD7E7000086AC /* HUD */,
 			);
 			productName = "iOS Example";
-			productReference = D94502F5261F98A400F6BF2E /* HUD Demo.app */;
+			productReference = D94502F5261F98A400F6BF2E /* HUD-Example.app */;
 			productType = "com.apple.product-type.application";
 		};
 /* End PBXNativeTarget section */
@@ -108,7 +108,7 @@
 			attributes = {
 				BuildIndependentTargetsInParallel = YES;
 				LastSwiftUpdateCheck = 1240;
-				LastUpgradeCheck = 1540;
+				LastUpgradeCheck = 1600;
 				TargetAttributes = {
 					D94502F4261F98A400F6BF2E = {
 						CreatedOnToolsVersion = 12.4;
@@ -126,7 +126,7 @@
 			);
 			mainGroup = D94502EC261F98A400F6BF2E;
 			packageReferences = (
-				A4B96F052C8AAB150044E6BC /* XCRemoteSwiftPackageReference "LookinServer" */,
+				A46AFF842CBFD7E7000086AC /* XCLocalSwiftPackageReference "../../HUD" */,
 			);
 			productRefGroup = D94502F6261F98A400F6BF2E /* Products */;
 			projectDirPath = "";
@@ -297,7 +297,7 @@
 					"@executable_path/Frameworks",
 				);
 				PRODUCT_BUNDLE_IDENTIFIER = "com.sunimp.$(PRODUCT_NAME:rfc1034identifier)";
-				PRODUCT_NAME = "HUD Demo";
+				PRODUCT_NAME = "HUD-Example";
 				SUPPORTED_PLATFORMS = "iphoneos iphonesimulator";
 				SUPPORTS_MACCATALYST = NO;
 				SUPPORTS_MAC_DESIGNED_FOR_IPHONE_IPAD = NO;
@@ -323,7 +323,7 @@
 					"@executable_path/Frameworks",
 				);
 				PRODUCT_BUNDLE_IDENTIFIER = "com.sunimp.$(PRODUCT_NAME:rfc1034identifier)";
-				PRODUCT_NAME = "HUD Demo";
+				PRODUCT_NAME = "HUD-Example";
 				SUPPORTED_PLATFORMS = "iphoneos iphonesimulator";
 				SUPPORTS_MACCATALYST = NO;
 				SUPPORTS_MAC_DESIGNED_FOR_IPHONE_IPAD = NO;
@@ -355,22 +355,17 @@
 		};
 /* End XCConfigurationList section */
 
-/* Begin XCRemoteSwiftPackageReference section */
-		A4B96F052C8AAB150044E6BC /* XCRemoteSwiftPackageReference "LookinServer" */ = {
-			isa = XCRemoteSwiftPackageReference;
-			repositoryURL = "https://github.com/QMUI/LookinServer/";
-			requirement = {
-				kind = upToNextMajorVersion;
-				minimumVersion = 1.2.8;
-			};
+/* Begin XCLocalSwiftPackageReference section */
+		A46AFF842CBFD7E7000086AC /* XCLocalSwiftPackageReference "../../HUD" */ = {
+			isa = XCLocalSwiftPackageReference;
+			relativePath = ../../HUD;
 		};
-/* End XCRemoteSwiftPackageReference section */
+/* End XCLocalSwiftPackageReference section */
 
 /* Begin XCSwiftPackageProductDependency section */
-		A4B96F062C8AAB150044E6BC /* LookinServer */ = {
+		A46AFF852CBFD7E7000086AC /* HUD */ = {
 			isa = XCSwiftPackageProductDependency;
-			package = A4B96F052C8AAB150044E6BC /* XCRemoteSwiftPackageReference "LookinServer" */;
-			productName = LookinServer;
+			productName = HUD;
 		};
 		D945030B261F99CC00F6BF2E /* HUD */ = {
 			isa = XCSwiftPackageProductDependency;
